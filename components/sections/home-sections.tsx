@@ -3,21 +3,22 @@ import type { SiteContent } from "@/lib/content/types";
 import { Icon } from "@/components/ui/icon";
 import { BrandIcon } from "@/components/ui/brand-icon";
 import { SocialLinks } from "@/components/ui/social-links";
-import { Robot } from "@/components/robot/robot";
+import { EditorialArt, Sculpture } from "./editorial-art";
 import { HeroScene } from "./hero-scene";
 import { ProjectArt } from "./project-art";
 
 export function HeroSection({ content }: { content: SiteContent }) {
   const { hero } = content.home;
+  const availableSocials = content.socials.filter((social) => social.url);
   return <section className="hero-section site-container" aria-labelledby="hero-heading">
-    <div className="hero-copy"><span className="availability hero-availability"><span className="availability-dot" />{content.profile.availability}</span>
+    <div className="hero-copy">
+      <span className="availability hero-availability"><span className="availability-dot" />{content.profile.availability}</span>
       <h1 id="hero-heading"><span>{hero.title}</span><span className="hero-emphasis">{hero.emphasis}</span></h1>
       <p className="hero-description">{hero.description}</p>
       <div className="hero-actions"><a href="#work" className="button">See my work <Icon name="arrow-right" size={17} /></a><a href="#hire" className="button button-secondary">Hire me</a></div>
-      <SocialLinks links={content.socials.slice(0, 4)} />
+      {availableSocials.length > 0 && <SocialLinks links={availableSocials} />}
     </div>
-    <HeroScene caption={hero.caption} />
-    <div className="hero-bottom"><span>Student at {content.profile.university}</span><a href="#work" aria-label="Scroll to selected work">A few things I’m working on <span className="scroll-mark" /></a></div>
+    <HeroScene />
   </section>;
 }
 
@@ -61,10 +62,19 @@ export function WritingSection({ content }: { content: SiteContent }) {
   if (!content.articles.length) return null;
   return <section className="writing-section section-space site-container" id="writing" aria-label="Blog">
     <SectionHeader {...content.home.writing} href="/blog" linkText="Visit the blog" />
-    <div className="article-list">{content.articles.map((article) => <article key={article.slug}><Link href={`/blog/${article.slug}`} className="article-row"><div className={`article-cover article-cover-${article.treatment}`} aria-hidden="true">{article.treatment === "blue" ? <><span className="cover-window"><i /><i /><i /></span><Icon name="heart" size={30} /></> : article.treatment === "lilac" ? <><span className="cover-code">&#123;</span><span className="cover-code">&#125;</span></> : <span className="cover-hindi">अ</span>}</div><div className="article-info"><div className="article-meta"><span>{article.tag}</span><span className="sample-label">Sample article</span></div><h3>{article.title}</h3><span className="article-mobile-time">{article.readingTime} min read</span></div><span className="article-time">{article.readingTime} min read</span><span className="article-arrow"><Icon name="arrow-up-right" size={22} /></span></Link></article>)}</div>
+    <div className="writing-grid">{content.articles.map((article) => <article className="writing-card" key={article.slug}>
+      <Link href={"/blog/" + article.slug} className="writing-link">
+        <EditorialArt treatment={article.treatment} />
+        <div className="writing-body">
+          <div className="writing-meta"><span>{article.tag}</span><span>{article.readingTime} min read</span></div>
+          <h3>{article.title}</h3>
+          <div className="writing-bottom"><span className="sample-label">Sample article</span><span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={20} /></span></div>
+        </div>
+      </Link>
+    </article>)}</div>
   </section>;
 }
 
 export function HireSection({ content }: { content: SiteContent }) {
-  return <section className="hire-section site-container" id="hire" aria-label="Work with Shivam"><div className="hire-banner"><div className="hire-copy"><span className="hire-availability"><span />Good ideas are always welcome.</span><h2>{content.home.hire.title}</h2><p>{content.home.hire.description}</p><Link className="button button-on-blue" href="/contact">{content.home.hire.action}<Icon name="arrow-up-right" size={18} /></Link></div><div className="hire-art" aria-hidden="true"><span className="hire-bubble">Let’s make<br />something useful.</span><Robot pose="wave" /><span className="hire-small-star"><Icon name="sparkles" size={34} /></span><span className="hire-large-star"><Icon name="sparkles" size={50} /></span></div></div></section>;
+  return <section className="hire-section site-container" id="hire" aria-label="Work with Shivam"><div className="hire-banner"><div className="hire-copy"><span className="hire-availability"><span />Good ideas are always welcome.</span><h2>{content.home.hire.title}</h2><p>{content.home.hire.description}</p><Link className="button button-on-blue" href="/contact">{content.home.hire.action}<Icon name="arrow-up-right" size={18} /></Link></div><div className="hire-art" aria-hidden="true"><Sculpture /></div></div></section>;
 }

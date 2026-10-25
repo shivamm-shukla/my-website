@@ -10,7 +10,7 @@ export function Robot({ className = "", pose = "wave", follow = false }: { class
   const svg = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (follow && svg.current) return attachEyes(svg.current);
+    if (svg.current) return attachEyes(svg.current);
   }, [follow]);
 
   return <svg ref={svg} className={`robot-art ${className}`} viewBox="0 0 240 290" fill="none" aria-hidden="true" focusable="false" data-follow={follow ? "true" : undefined} data-pose={pose}>

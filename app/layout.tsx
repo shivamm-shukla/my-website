@@ -1,12 +1,17 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { ClientEnhancements } from "@/components/client-enhancements";
 import { getSiteContent, isPreview, siteUrl } from "@/lib/content/repository";
 import { themeInitialiser } from "@/lib/theme";
+import "./tokens.css";
 import "./globals.css";
 import "./design.css";
+import "./project-art.css";
+import "./interactions.css";
+
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

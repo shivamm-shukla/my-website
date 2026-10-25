@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useState } from "react";
 import { Icon } from "@/components/ui/icon";
+import { motionAllowed } from "@/lib/robot/motion.mjs";
 
 type Theme = "light" | "dark";
 const ThemeContext = createContext<{ theme: Theme; toggle: () => void }>({ theme: "light", toggle: () => {} });
@@ -30,7 +31,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const toggle = useCallback(() => {
     const next = theme === "dark" ? "light" : "dark";
     try { localStorage.setItem("shivam-theme", next); } catch { /* Still change this visit's theme. */ }
-    applyTheme(next);
+    if (motionAllowed() && document.startViewTransition) {
+      document.startViewTransition(() => applyTheme(next));
+    } else {
+      applyTheme(next);
+    }
     window.dispatchEvent(new CustomEvent("site:theme", { detail: next }));
   }, [theme, applyTheme]);
 

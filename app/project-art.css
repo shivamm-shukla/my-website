@@ -1,0 +1,107 @@
+.care-art { position: absolute; inset: 290px 0 0; overflow: hidden; }.care-orbit { position: absolute; border: 1px solid var(--care-orbit); border-radius: 50%; width: 460px; height: 460px; left: 65px; top: 35px; }.orbit-two { width: 340px; height: 340px; left: 125px; top: 95px; }
+.phone-mockup { position: absolute; width: 246px; height: 400px; left: calc(50% - 93px); top: 29px; padding: 6px; border: 2px solid var(--care-frame); border-radius: 41px; background: var(--care-phone); transform: rotate(-10deg); box-shadow: 14px 25px 35px rgb(var(--shadow-rgb) / .12), inset 0 0 0 1px var(--surface); }
+.phone-inner { position: relative; height: 100%; border-radius: 33px; background: var(--care-phone); overflow: hidden; color: var(--care-screen-ink); padding: 12px 17px; }.phone-status { display: flex; justify-content: space-between; font-size: 9px; font-weight: 650; padding-inline: 7px; }.phone-island { position: absolute; width: 69px; height: 16px; top: 7px; left: calc(50% - 34px); border-radius: 20px; background: var(--terminal-bg); }.phone-sensors { display: flex; gap: 2px; align-items: end; }.phone-sensors i { background: var(--care-screen-ink); width: 3px; height: 5px; }.phone-sensors i:nth-child(2) { height: 7px; }.phone-sensors i:nth-child(3) { width: 9px; height: 6px; border-radius: 2px; margin-left: 3px; }
+.phone-brand { display: flex; align-items: center; gap: 5px; font-size: 14px; font-weight: 650; margin-top: 23px; }.phone-inner h4 { margin-top: 13px; font-size: 30px; font-weight: 650; letter-spacing: -1.4px; line-height: 1.1; }.phone-inner > p { margin-top: 9px; color: var(--care-screen-muted); font-size: 10px; line-height: 1.5; }
+.care-people { width: 202px; margin: 2px auto 0; }.care-people svg { display: block; width: 100%; height: auto; }.phone-promise { display: flex; align-items: center; gap: 7px; padding: 10px 7px; border-radius: 13px; background: var(--care-art-shadow); font-size: 8px; font-weight: 600; margin-top: -8px; }.phone-promise small { display: block; font-size: 7px; font-weight: 400; color: var(--care-screen-muted); margin-top: 1px; }.promise-heart { display: grid; place-items: center; }.phone-promise > svg { margin-left: auto; }.phone-bottom-line { position: absolute; bottom: 6px; left: calc(50% - 35px); width: 70px; height: 3px; border-radius: 5px; background: var(--care-screen-ink); }
+.care-floating-heart { position: absolute; left: 62px; top: 101px; width: 62px; height: 62px; display: grid; place-items: center; color: var(--accent); background: var(--glass); border: 1px solid var(--care-orbit); border-radius: 19px; transform: rotate(-12deg); box-shadow: 0 8px 15px rgb(var(--shadow-rgb) / .04); }.care-note { display: flex; align-items: center; gap: 9px; position: absolute; right: 26px; top: 214px; padding: 13px 15px; border: 1px solid var(--care-orbit); border-radius: 15px; background: var(--glass); z-index: 2; box-shadow: 0 12px 24px rgb(var(--shadow-rgb) / .055); transform: rotate(5deg); font-size: 10px; }.care-note small { display: block; font-size: 8px; color: var(--care-muted); margin-top: 2px; }.care-note-icon { width: 25px; height: 25px; border-radius: 50%; background: var(--green-bg); color: var(--green); display: grid; place-items: center; }.art-caption { position: absolute; right: 24px; bottom: 22px; font-size: 9px; color: var(--care-muted); }
+.terminal-art { padding: 20px 30px 50px; }.terminal-bridge { display: flex; align-items: center; gap: 7px; }.tool-chip { display: inline-flex; align-items: center; gap: 7px; padding: 8px 10px; border: 1px solid var(--terminal-line); background: var(--terminal-chip); border-radius: 10px; font: 10px ui-monospace, monospace; white-space: nowrap; }.claude-symbol { color: var(--peach); font-size: 19px; line-height: 1; }.bridge-line { position: relative; flex: 1; min-width: 26px; display: flex; align-items: center; justify-content: center; color: var(--terminal-green); }.bridge-line i { position: absolute; width: 100%; height: 1px; background: var(--terminal-line); }.bridge-line > svg { z-index: 1; background: var(--terminal-bg); }.context-file { display: flex; align-items: center; gap: 8px; margin-top: 12px; font: 10px ui-monospace, monospace; color: var(--terminal-muted); }.context-file > svg { color: var(--terminal-accent); }.context-cursor { width: 5px; height: 11px; background: var(--terminal-accent); opacity: .6; }
+.learning-art { position: absolute; right: -7px; bottom: 30px; width: 218px; height: 180px; z-index: 1; }.learning-sheet { width: 192px; padding: 15px; height: 179px; background: var(--learning-paper); color: var(--learning-accent); border: 1px solid var(--learning-line); border-radius: 15px; box-shadow: 0 10px 24px rgb(var(--shadow-rgb) / .04); transform: rotate(-9deg); }.learning-sheet-top { display: flex; justify-content: space-between; align-items: center; font-size: 7px; }.learning-sheet > p { font-size: 22px; line-height: 1.5; margin-top: 13px; color: var(--learning-ink); }.dark .learning-sheet > p { color: var(--learning-accent); }.learning-answer { margin-top: 12px; display: flex; justify-content: space-between; align-items: center; padding: 8px 9px; border: 1px solid var(--learning-line); border-radius: 7px; font-size: 10px; }.answer-check { color: var(--green); }.learning-star { position: absolute; right: 18px; top: -15px; color: var(--learning-accent); transform: rotate(12deg); }.project-learning .project-copy { max-width: 330px; }.project-learning .project-tagline { font-size: 26px; max-width: 220px; }.project-learning .project-description { max-width: 205px; padding-right: 15px; }
+
+
+/* Artwork is illustrative. Its scale changes independently of the reading copy. */
+.care-art { inset: 32px 8px 0 49%; }
+.care-orbit { display: none; }
+.phone-mockup { width: 290px; height: 480px; left: calc(50% - 133px); top: 56px; border-radius: 46px; padding: 7px; transform: rotate(-9deg); }
+.phone-inner { padding: 16px 22px; border-radius: 37px; }
+.phone-status { font-size: 10px; }
+.phone-island { width: 82px; height: 19px; left: calc(50% - 41px); top: 9px; }
+.phone-brand { margin-top: 30px; font-size: 18px; }
+.phone-inner h4 { margin-top: 20px; font-size: 37px; }
+.phone-inner > p { margin-top: 12px; font-size: 12px; }
+.care-people { width: 238px; margin-top: 6px; }
+.phone-promise { font-size: 10px; padding: 12px 9px; margin-top: -2px; }
+.phone-promise small { font-size: 9px; }
+.care-floating-heart { left: 20px; top: 156px; width: 64px; height: 64px; border-radius: 21px; }
+.care-note { right: 20px; top: 327px; padding: 16px; font-size: 12px; backdrop-filter: blur(16px); }
+.care-note small { font-size: 10px; }
+.art-caption { right: 24px; bottom: 24px; font-size: 11px; }
+.terminal-art { padding: 32px 36px 84px; }
+.terminal-bridge { gap: 10px; }
+.tool-chip { padding: 12px 16px; font-size: 12px; border-radius: 14px; }
+.context-file { font-size: 12px; margin-top: 18px; gap: 10px; }
+.bridge-line { min-width: 24px; }
+.context-cursor { animation: cursor-blink 1.5s steps(1) infinite; }
+.project-learning .project-copy { max-width: none; }
+.project-learning .project-tagline { max-width: 350px; font-size: 38px; }
+.project-learning .project-description { max-width: 260px; padding: 0; }
+.learning-art { width: 230px; height: 200px; right: 0; bottom: 10px; }
+.learning-sheet { width: 216px; height: 190px; padding: 18px; border-radius: 20px; }
+.learning-sheet-top { font-size: 9px; }
+.learning-sheet > p { font-size: 24px; margin-top: 12px; }
+.learning-answer { font-size: 12px; padding: 9px; margin-top: 10px; }
+.learning-star { top: -14px; right: 14px; }
+@keyframes cursor-blink { 0%, 65% { opacity: .65; } 66%, 100% { opacity: 0; } }
+@media (max-width: 1000px) {
+  .phone-mockup { width: 264px; height: 440px; left: calc(50% - 126px); top: 100px; }
+  .phone-inner { padding-inline: 18px; }
+  .phone-inner h4 { font-size: 33px; }
+  .care-people { width: 218px; }
+  .care-note { top: 350px; right: 8px; padding: 12px; font-size: 11px; }
+  .care-note small { font-size: 9px; }
+  .care-floating-heart { left: 8px; top: 188px; width: 50px; height: 50px; }
+  .terminal-art { padding-inline: 28px; }
+  .tool-chip { font-size: 10px; padding: 10px; gap: 6px; }
+  .bridge-line { min-width: 16px; }
+  .terminal-bridge { gap: 6px; }
+  .project-learning .project-tagline { font-size: 32px; }
+  .project-learning .project-description { max-width: 230px; }
+  .learning-art { width: 190px; height: 166px; right: -8px; bottom: 18px; }
+  .learning-sheet { width: 178px; height: 158px; padding: 13px; }
+  .learning-sheet > p { font-size: 20px; margin-top: 8px; }
+  .learning-sheet-top { font-size: 8px; }
+  .learning-answer { font-size: 10px; padding: 7px; margin-top: 8px; }
+}
+@media (max-width: 700px) {
+  .care-art { inset: 305px 0 0; }
+  .phone-mockup { top: 36px; left: calc(50% - 108px); }
+  .care-floating-heart { top: 125px; left: 32px; }
+  .care-note { top: 280px; right: 24px; }
+  .art-caption { bottom: 24px; right: 24px; font-size: 10px; }
+  .tool-chip { font-size: 12px; padding: 12px 14px; }
+  .terminal-art { padding-top: 36px; }
+  .project-learning .project-tagline { font-size: 36px; }
+  .project-learning .project-description { max-width: 330px; }
+  .learning-art { width: 232px; height: 200px; right: 8px; bottom: 16px; }
+  .learning-sheet { width: 218px; height: 190px; padding: 18px; }
+  .learning-sheet > p { font-size: 24px; margin-top: 10px; }
+  .learning-sheet-top { font-size: 9px; }
+  .learning-answer { font-size: 12px; padding: 9px; margin-top: 10px; }
+}
+@media (max-width: 600px) {
+  .care-art { top: 330px; }
+  .phone-mockup { width: 242px; height: 402px; border-radius: 41px; top: 28px; left: calc(50% - 96px); }
+  .phone-inner { padding: 12px 17px; border-radius: 32px; }
+  .phone-brand { margin-top: 26px; font-size: 16px; }
+  .phone-inner h4 { margin-top: 14px; font-size: 32px; }
+  .phone-inner > p { font-size: 11px; margin-top: 10px; }
+  .care-people { width: 198px; }
+  .phone-promise { font-size: 9px; padding: 9px 7px; }
+  .phone-promise small { font-size: 8px; }
+  .care-floating-heart { left: 12px; top: 115px; width: 46px; height: 46px; border-radius: 15px; }
+  .care-note { top: 253px; right: 14px; font-size: 10px; padding: 11px; }
+  .care-note small { font-size: 9px; }
+  .art-caption { font-size: 9px; right: 18px; }
+  .tool-chip { font-size: 11px; padding: 12px 10px; }
+  .terminal-art { padding: 36px 28px 84px; }
+  .project-learning .project-tagline { font-size: 34px; }
+  .project-learning .project-description { max-width: 260px; font-size: 14px; }
+  .learning-art { width: 204px; height: 182px; right: 2px; bottom: 24px; }
+  .learning-sheet { width: 194px; height: 176px; padding: 15px; }
+  .learning-sheet > p { font-size: 22px; }
+  .learning-answer { font-size: 11px; padding: 8px; }
+}
+@media (max-width: 359px) {
+  .terminal-art { padding-inline: 24px; }
+  .tool-chip { font-size: 10px; padding-inline: 8px; }
+  .project-learning .project-tagline { font-size: 30px; }
+}

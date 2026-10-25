@@ -18,7 +18,10 @@ export function Dialog({ open, onClose, title, className = "", children }: { ope
     return () => {
       dialog.close();
       document.body.style.overflow = previousOverflow;
-      previous?.focus({ preventScroll: true });
+      requestAnimationFrame(() => {
+        if (previous?.isConnected && getComputedStyle(previous).visibility !== "hidden") previous.focus({ preventScroll: true });
+        else document.querySelector<HTMLElement>(".assistant-launcher")?.focus({ preventScroll: true });
+      });
     };
   }, [open]);
 

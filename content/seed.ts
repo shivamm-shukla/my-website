@@ -71,7 +71,7 @@ export const siteContent: SiteContent = {
     hero: {
       title: "I build products",
       emphasis: "people actually need.",
-      description: "Hi, I’m Shivam. A computer science student turning everyday problems into thoughtful software.",
+      description: "Hi, I’m Shivam. I turn everyday problems into thoughtful software. Currently building Thravia.",
       note: "Made for\nreal people.",
       caption: "A little curiosity goes a long way.",
     },

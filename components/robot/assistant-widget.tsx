@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Dialog } from "@/components/ui/dialog";
 import { Icon } from "@/components/ui/icon";
@@ -38,9 +38,9 @@ export default function AssistantWidget({ initiallyOpen = false }: { initiallyOp
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (trigger.current) return attachRoaming(trigger.current, { isOpen: () => openRef.current });
-  }, [pathname]);
+  }, []);
 
   useEffect(() => {
     if (answer !== null) answerRegion.current?.scrollIntoView({ block: "nearest", behavior: "instant" });

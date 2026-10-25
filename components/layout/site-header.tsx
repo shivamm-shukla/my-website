@@ -17,6 +17,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
   useEffect(() => {
     const handle = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        if (document.querySelector("dialog[open]:not(.command-dialog)")) return;
         event.preventDefault();
         setMobileOpen(false);
         setSearch("");
@@ -29,15 +30,17 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
 
   return <>
     <header className="site-header">
+      <div className="header-inner site-container">
       <Link href="/" className="brand" aria-label={`${name}, home`}><span className="brand-mark" aria-hidden="true">ss<span>.</span></span><span className="brand-name">{name}</span></Link>
       <nav className="desktop-nav" aria-label="Main navigation">{navigation.map((item) => <Link key={item.label} href={item.href}>{item.label}</Link>)}</nav>
       <div className="header-actions">
-        <button type="button" className="icon-button header-assistant" aria-label="Open Shivam’s assistant" aria-haspopup="dialog" title="Meet my sidekick" data-open-assistant onClick={() => window.dispatchEvent(new Event("site:assistant"))}><Icon name="message" size={19} /></button>
         <button type="button" className="icon-button command-trigger" aria-label="Open quick navigation" title="Quick navigation (⌘ / Ctrl K)" onClick={() => { setSearch(""); setCommandOpen(true); }}><Icon name="command" size={17} /></button>
         <span className="header-divider" aria-hidden="true" />
         <ThemeToggle />
+        <span className="header-companion-slot" data-companion-slot aria-hidden="true" />
         <Link href="/#hire" className="button button-small header-hire">Hire me <Icon name="arrow-up-right" size={15} /></Link>
         <button type="button" className="icon-button mobile-menu-trigger" aria-label="Open menu" aria-expanded={mobileOpen} aria-haspopup="dialog" onClick={() => setMobileOpen(true)}><Icon name="menu" size={23} /></button>
+      </div>
       </div>
     </header>
     <Dialog open={mobileOpen} onClose={() => setMobileOpen(false)} title="Make yourself at home." className="mobile-nav-dialog">
