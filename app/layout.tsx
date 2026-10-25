@@ -10,6 +10,7 @@ import "./globals.css";
 import "./design.css";
 import "./project-art.css";
 import "./interactions.css";
+import "./core-pages.css";
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 

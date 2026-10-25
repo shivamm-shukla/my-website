@@ -73,6 +73,7 @@
 .scholarship-divider { width: 1px; height: 14px; background: var(--line); }
 
 .posts-section { background: var(--soft); }
+.posts-section .section-heading p, .posts-section .sample-explanation { color: var(--muted-on-soft); }
 .posts-section .section-heading h2 { max-width: 570px; }
 .posts-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
 .post-card { padding: 28px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); display: flex; flex-direction: column; min-width: 0; }

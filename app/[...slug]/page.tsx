@@ -5,13 +5,8 @@ import { getSiteContent, isPreview } from "@/lib/content/repository";
 import { Icon } from "@/components/ui/icon";
 
 const pages: Record<string, { title: string; description: string }> = {
-  about: { title: "A little more about Shivam.", description: "The full story, the journey, and the person behind the work. This page is part of the next preview." },
-  work: { title: "Built with a purpose.", description: "Products for families, students, and developers. The complete project collection and case studies are next." },
   posts: { title: "Notes from the internet.", description: "A home for thoughts, updates, and ideas. Real social posts will be managed through the owner’s studio." },
   blog: { title: "Thinking out loud.", description: "Longer thoughts on building useful things. The full writing experience comes with the content studio." },
-  "hire-me": { title: "Let’s make something useful.", description: "Shivam is open to freelance projects. The services page and contact flow are in the next phase." },
-  resume: { title: "Shivam, on one page.", description: "B.Tech Computer Science at Sitare University. Graduating May 2028. The printable résumé and owner-supplied PDF are next." },
-  contact: { title: "It starts with a hello.", description: "A project, a question, or just a good conversation. Contact details and the working form will arrive in the next phase." },
   admin: { title: "Your personal studio.", description: "The private workspace for pages, projects, writing, media, and everything that makes this website yours. Owner authentication and editing are planned for the CMS phase." },
 };
 

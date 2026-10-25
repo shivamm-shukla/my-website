@@ -11,6 +11,10 @@ export type Project = {
   treatment: "care" | "terminal" | "learning";
   externalUrl?: string;
   externalLabel?: string;
+  problem: string;
+  built: string;
+  outcome: string;
+  tech: string[];
   published: boolean;
 };
 

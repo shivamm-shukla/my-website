@@ -26,6 +26,7 @@ export function Dialog({ open, onClose, title, className = "", children }: { ope
   }, [open]);
 
   return <dialog ref={ref} className={`dialog ${className}`} aria-labelledby={titleId} onCancel={(event) => { event.preventDefault(); onClose(); }} onClick={(event) => { if (event.target === event.currentTarget) onClose(); }} onKeyDown={(event) => {
+    if (event.key === "Escape") { event.preventDefault(); onClose(); return; }
     if (event.key !== "Tab") return;
     const controls = [...event.currentTarget.querySelectorAll<HTMLElement>('a[href], button:not(:disabled), input:not(:disabled), textarea:not(:disabled), select:not(:disabled), [tabindex="0"]')].filter((element) => element.getClientRects().length);
     const first = controls[0], last = controls[controls.length - 1];

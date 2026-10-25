@@ -70,7 +70,7 @@ p { text-wrap: pretty; }
 .availability-dot, .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); position: relative; flex-shrink: 0; }
 .availability-dot::after { content: ""; position: absolute; inset: -4px; border: 1px solid var(--green); border-radius: 50%; animation: beacon 3s ease-out infinite; }
 .preview-label, .sample-label { display: inline-flex; align-items: center; padding: 3px 7px; border: 1px solid var(--line); border-radius: 6px; font-size: 11px; font-weight: 400; line-height: 1.5; color: var(--muted); white-space: nowrap; }
-.preview-label { background: var(--soft); }
+.preview-label { background: var(--soft); color: var(--fg); }
 .sample-explanation { color: var(--muted); font-size: 13px; margin-top: 24px; }
 
 .site-footer { padding-top: 80px; padding-bottom: max(24px, env(safe-area-inset-bottom)); }

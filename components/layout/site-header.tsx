@@ -38,7 +38,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
         <span className="header-divider" aria-hidden="true" />
         <ThemeToggle />
         <span className="header-companion-slot" data-companion-slot aria-hidden="true" />
-        <Link href="/#hire" className="button button-small header-hire">Hire me <Icon name="arrow-up-right" size={15} /></Link>
+        <Link href="/hire-me" className="button button-small header-hire">Hire me <Icon name="arrow-up-right" size={15} /></Link>
         <button type="button" className="icon-button mobile-menu-trigger" aria-label="Open menu" aria-expanded={mobileOpen} aria-haspopup="dialog" onClick={() => setMobileOpen(true)}><Icon name="menu" size={23} /></button>
       </div>
       </div>
