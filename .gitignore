@@ -10,5 +10,15 @@ test-results/
 *.log
 
 docs/*
+!docs/DEPLOY.md
+!docs/TODO-OWNER.md
+!docs/ARCHITECTURE.md
+!docs/PROGRESS.md
+!docs/lighthouse/
+!docs/lighthouse/**
+!docs/screenshots/
+!docs/screenshots/**
+!docs/test-report/
+!docs/test-report/**
 AGENTS.md
 

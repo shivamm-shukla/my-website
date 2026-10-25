@@ -75,9 +75,9 @@ export const siteContent: SiteContent = {
     { id: "sample-language", platform: "linkedin", caption: "A familiar language can turn an intimidating screen into an invitation. That’s a design detail worth caring about.", topic: "Building for people", isDemo: true },
   ],
   articles: [
-    { slug: "sample-before-the-code", title: "Good software starts before the first line of code", tag: "Product thinking", readingTime: 5, treatment: "blue", isDemo: true },
-    { slug: "sample-carrying-context", title: "What happens to context when you switch AI tools?", tag: "Developer tools", readingTime: 4, treatment: "lilac", isDemo: true },
-    { slug: "sample-building-in-hindi", title: "Making room for Hindi on the internet", tag: "Design & language", readingTime: 6, treatment: "peach", isDemo: true },
+    { slug: "sample-before-the-code", title: "Good software starts before the first line of code", excerpt: "A sample editorial preview about beginning with the person and the problem.", tags: ["Product thinking"], tag: "Product thinking", readingTime: 5, treatment: "blue", isDemo: true, contentMd: "## Start with the person\n\nUseful software begins with a clear understanding of whose day should become easier.\n\n> This is sample copy for design review. It is not a published article by Shivam.\n\n## Make the first version small\n\nA focused first release gives a real person something they can try, question, and improve." },
+    { slug: "sample-carrying-context", title: "What happens to context when you switch AI tools?", excerpt: "A sample article exploring why project context should travel with the developer.", tags: ["Developer tools"], tag: "Developer tools", readingTime: 4, treatment: "lilac", isDemo: true, contentMd: "## Context is part of the work\n\nChanging tools should not mean rebuilding the same explanation every time.\n\n```sh\nbrg switch codex\n```\n\n> This sample exists to review article typography and code blocks." },
+    { slug: "sample-building-in-hindi", title: "Making room for Hindi on the internet", excerpt: "A sample reflection on designing familiar digital experiences for Hindi-medium students.", tags: ["Design & language"], tag: "Design & language", readingTime: 6, treatment: "peach", isDemo: true, contentMd: "## Familiar language changes the experience\n\nWhen the language feels familiar, the interface can feel less intimidating.\n\n> This is sample content for design review and is not a published claim by Shivam." },
   ],
   home: {
     hero: {

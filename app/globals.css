@@ -2,14 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face { font-family: "Studio Sans"; src: url("/fonts/studio-sans-400.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Studio Sans"; src: url("/fonts/studio-sans-500.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: "Studio Sans"; src: url("/fonts/studio-sans-600.woff2") format("woff2"); font-weight: 600; font-style: normal; font-display: swap; }
-@font-face { font-family: "Studio Sans"; src: url("/fonts/studio-sans-700.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
-
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 112px; scrollbar-gutter: stable; }
-body { margin: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Studio Sans", system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+body { margin: 0; background: var(--bg); color: var(--fg); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui, sans-serif; font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 button, input, textarea, select { font: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 button { color: inherit; cursor: pointer; }

@@ -15,6 +15,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
   const matches = useMemo(() => allPages.filter((page) => page.label.toLowerCase().includes(search.trim().toLowerCase())), [search, allPages]);
 
   useEffect(() => {
+    document.documentElement.dataset.commandReady = "true";
     const handle = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         if (document.querySelector("dialog[open]:not(.command-dialog)")) return;
@@ -25,13 +26,13 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
       }
     };
     window.addEventListener("keydown", handle);
-    return () => window.removeEventListener("keydown", handle);
+    return () => { delete document.documentElement.dataset.commandReady; window.removeEventListener("keydown", handle); };
   }, []);
 
   return <>
     <header className="site-header">
       <div className="header-inner site-container">
-      <Link href="/" className="brand" aria-label={`${name}, home`}><span className="brand-mark" aria-hidden="true">ss<span>.</span></span><span className="brand-name">{name}</span></Link>
+      <Link href="/" className="brand"><span className="brand-mark" aria-hidden="true">ss<span>.</span></span><span className="brand-name">{name}</span></Link>
       <nav className="desktop-nav" aria-label="Main navigation">{navigation.map((item) => <Link key={item.label} href={item.href}>{item.label}</Link>)}</nav>
       <div className="header-actions">
         <button type="button" className="icon-button command-trigger" aria-label="Open quick navigation" title="Quick navigation (⌘ / Ctrl K)" onClick={() => { setSearch(""); setCommandOpen(true); }}><Icon name="command" size={17} /></button>

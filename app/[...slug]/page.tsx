@@ -5,8 +5,6 @@ import { getSiteContent, isPreview } from "@/lib/content/repository";
 import { Icon } from "@/components/ui/icon";
 
 const pages: Record<string, { title: string; description: string }> = {
-  posts: { title: "Notes from the internet.", description: "A home for thoughts, updates, and ideas. Real social posts will be managed through the owner’s studio." },
-  blog: { title: "Thinking out loud.", description: "Longer thoughts on building useful things. The full writing experience comes with the content studio." },
   admin: { title: "Your personal studio.", description: "The private workspace for pages, projects, writing, media, and everything that makes this website yours. Owner authentication and editing are planned for the CMS phase." },
 };
 

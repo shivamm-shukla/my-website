@@ -40,6 +40,12 @@ kbd { font-size: 11px; padding: 2px 4px; border: 1px solid var(--line); border-r
 .assistant-intro > .robot-art { width: 76px; flex-shrink: 0; }
 .assistant-intro p { font-size: 18px; font-weight: 500; letter-spacing: -.4px; }
 .assistant-intro span { display: block; color: var(--muted); font-size: 14px; margin-top: 6px; line-height: 1.6; }
+.assistant-form { margin-top: 20px; }
+.assistant-form label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; }
+.assistant-form > div { display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.assistant-form input { min-width: 0; flex: 1; border: 0; outline: 0; background: transparent; color: var(--fg); font-size: 14px; }
+.assistant-form button { flex: 0 0 auto; width: 40px; height: 40px; display: grid; place-items: center; border: 0; border-radius: 12px; background: var(--accent); color: var(--accent-fg); }
+.assistant-form button:disabled { opacity: .45; }
 .assistant-choices { display: grid; gap: 10px; margin-top: 24px; }
 .assistant-choices button { display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); padding: 14px 16px; min-height: 52px; font-size: 14px; transition: border-color 160ms ease, background 160ms ease; }
 .assistant-choices button > svg { color: var(--muted); }

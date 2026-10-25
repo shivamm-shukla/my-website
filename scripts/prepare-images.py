@@ -22,3 +22,10 @@ for source, name, size, centering in assets:
     image = ImageOps.fit(image, size, Image.Resampling.LANCZOS, centering=centering)
     image.save(output / name, "WEBP", quality=88, method=6)
     print(f"{name}: {size[0]} × {size[1]}, {(output / name).stat().st_size // 1024} KiB")
+
+icon_source = Image.open(root / "not-found.png").convert("RGB")
+width, height = icon_source.size
+icon_source = icon_source.crop((round(width * .08), round(height * .06), round(width * .90), round(height * .90)))
+icon = ImageOps.fit(icon_source, (256, 256), Image.Resampling.LANCZOS, centering=(.5, .45))
+icon.save(root.parent.parent / "app" / "icon.png", "PNG", optimize=True)
+print("app/icon.png: 256 × 256")

@@ -23,11 +23,10 @@ export function MotionToggle({ compact = false }: { compact?: boolean }) {
   }, []);
   const stopped = system || paused;
   return <button type="button" className={`motion-toggle ${compact ? "motion-compact" : ""}`} data-motion-toggle
-    aria-label={system ? "Animations paused by your system setting" : paused ? "Resume animations" : "Pause animations"}
     aria-pressed={stopped} disabled={system} onClick={() => {
       const next = paused ? "auto" : "paused";
       document.documentElement.dataset.motion = next;
       try { localStorage.setItem("shivam-motion", next); } catch { /* The current visit still respects the choice. */ }
       window.dispatchEvent(new Event("site:motion"));
-    }}><Icon name="sparkles" size={15} /><span>{stopped ? "Motion off" : "Pause motion"}</span></button>;
+    }}><Icon name="sparkles" size={15} /><span>{system ? "Motion off" : paused ? "Resume motion" : "Pause motion"}</span></button>;
 }

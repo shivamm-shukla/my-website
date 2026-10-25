@@ -29,7 +29,7 @@ function SectionHeader({ title, description, href, linkText }: { title: string; 
 export function WorkSection({ content }: { content: SiteContent }) {
   return <section className="work-section section-space site-container" id="work" aria-label="Selected work">
     <SectionHeader {...content.home.work} href="/work" linkText="All projects" />
-    <div className="project-grid">{content.projects.map((project) => <article key={project.id} className={`project-card project-${project.treatment}`}><Link href={`/work/${project.slug}`} className="project-link" aria-label={`Explore ${project.title}: ${project.summary}`}>
+    <div className="project-grid">{content.projects.map((project) => <article key={project.id} className={`project-card project-${project.treatment}`}><Link href={`/work/${project.slug}`} className="project-link">
       <div className="project-copy"><div className="project-topline"><span className="project-category">{project.category}</span><span className="project-open"><Icon name="arrow-up-right" size={18} /></span></div><h3>{project.title}</h3><p className="project-tagline">{project.headline}</p><p className="project-description">{project.summary}</p></div>
       <ProjectArt treatment={project.treatment} />
       <div className="project-status"><span className={project.id === "thravia" ? "status-dot" : "status-symbol"}>{project.id === "brg-cli" ? <Icon name="code" size={14} /> : project.id === "jeetlo" ? <Icon name="book" size={13} /> : null}</span>{project.status}</div>
@@ -64,9 +64,9 @@ export function WritingSection({ content }: { content: SiteContent }) {
     <SectionHeader {...content.home.writing} href="/blog" linkText="Visit the blog" />
     <div className="writing-grid">{content.articles.map((article) => <article className="writing-card" key={article.slug}>
       <Link href={"/blog/" + article.slug} className="writing-link">
-        <EditorialArt treatment={article.treatment} />
+        <EditorialArt treatment={article.treatment || "blue"} />
         <div className="writing-body">
-          <div className="writing-meta"><span>{article.tag}</span><span>{article.readingTime} min read</span></div>
+          <div className="writing-meta"><span>{article.tags?.[0] || article.tag || "Journal"}</span><span>{article.readingTime} min read</span></div>
           <h3>{article.title}</h3>
           <div className="writing-bottom"><span className="sample-label">Sample article</span><span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={20} /></span></div>
         </div>

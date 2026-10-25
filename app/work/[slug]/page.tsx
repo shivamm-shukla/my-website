@@ -9,7 +9,7 @@ import { ProjectArt } from "@/components/sections/project-art";
 const covers: Record<string, string | undefined> = { thravia: "/images/thravia.png", "brg-cli": "/images/brg-cli.png" };
 
 export async function generateStaticParams() { return (await getSiteContent()).projects.map(({ slug }) => ({ slug })); }
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const project = (await getSiteContent()).projects.find((item) => item.slug === slug); if (!project) return {}; return { title: project.title, description: project.summary, alternates: { canonical: `/work/${slug}` } }; }
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> { const { slug } = await params; const project = (await getSiteContent()).projects.find((item) => item.slug === slug); if (!project) return {}; return { title: project.title, description: project.summary, alternates: { canonical: `/work/${slug}` }, openGraph: { title: project.title, description: project.summary, images: [`/api/og?title=${encodeURIComponent(project.title)}`] }, twitter: { card: "summary_large_image", images: [`/api/og?title=${encodeURIComponent(project.title)}`] } }; }
 
 export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

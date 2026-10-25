@@ -76,6 +76,7 @@ test("mobile menu exposes the sitemap and returns keyboard focus", async ({ page
 
 test("quick navigation focuses search and supports an empty result", async ({ page }) => {
   await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-command-ready", "true");
   await page.keyboard.press("Control+k");
   const input = page.getByRole("searchbox", { name: "Search pages" });
   await expect(input).toBeFocused();
@@ -88,7 +89,7 @@ test("quick navigation focuses search and supports an empty result", async ({ pa
 test("motion can be paused and the choice survives reload", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
-  await page.locator(".footer-bottom").getByRole("button", { name: "Pause animations" }).click();
+  await page.locator(".footer-bottom").getByRole("button", { name: "Pause motion" }).click();
   await expect(page.locator("html")).toHaveAttribute("data-motion", "paused");
   await page.reload();
   await expect(page.locator("html")).toHaveAttribute("data-motion", "paused");
