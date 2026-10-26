@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#4aa8ff"/><stop offset="1" stop-color="#7a5cff"/></linearGradient>
+    <linearGradient id="shell" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#d9deea"/></linearGradient>
+  </defs>
+  <rect width="96" height="96" rx="24" fill="url(#tile)"/>
+  <g stroke="#c4cad6" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M48 13v9" stroke="#9aa3b2" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="48" cy="10" r="4" fill="#2997ff" stroke="none"/>
+    <rect x="31" y="61" width="34" height="25" rx="12" fill="url(#shell)"/>
+    <circle cx="23" cy="74" r="7" fill="url(#shell)"/><circle cx="73" cy="74" r="7" fill="url(#shell)"/>
+    <rect x="13" y="18" width="70" height="52" rx="25" fill="url(#shell)"/>
+    <rect x="20" y="27" width="56" height="36" rx="18" fill="#0b1220" stroke="none"/>
+    <ellipse cx="38" cy="43" rx="5.5" ry="7" fill="#5ac8ff" stroke="none"/>
+    <ellipse cx="58" cy="43" rx="5.5" ry="7" fill="#5ac8ff" stroke="none"/>
+    <path d="M42 54q6 5 12 0" fill="none" stroke="#5ac8ff" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="27" cy="53" r="2.7" fill="#ff7aa8" stroke="none"/><circle cx="69" cy="53" r="2.7" fill="#ff7aa8" stroke="none"/>
+  </g>
+</svg>

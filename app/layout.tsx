@@ -14,7 +14,7 @@ import "./core-pages.css";
 import "./content-pages.css";
 import "./admin.css";
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: [{ media: "(prefers-color-scheme: light)", color: "#e9eeff" }, { media: "(prefers-color-scheme: dark)", color: "#080819" }] };
 const blockIndexing = process.env.VERCEL_ENV === "preview" || process.env.NEXT_PUBLIC_SITE_MODE === "preview";
 
 export const metadata: Metadata = {
@@ -30,6 +30,9 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const content = await getSiteContent();
-  const person = { "@context": "https://schema.org", "@type": "Person", name: content.profile.name, url: siteUrl, description: content.profile.description, alumniOf: [{ "@type": "CollegeOrUniversity", name: "Sitare University" }, { "@type": "EducationalOrganization", name: "Jawahar Navodaya Vidyalaya" }], knowsAbout: ["Product development", "Web development", "Mobile applications", "Artificial intelligence"] };
-  return <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth"><head><script dangerouslySetInnerHTML={{ __html: themeInitialiser }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person).replace(/</g, "\\u003c") }} /></head><body id="top"><ThemeProvider><a href="#main-content" className="skip-link">Skip to content</a><SiteHeader name={content.profile.name} navigation={content.navigation} allPages={content.footerNavigation} />{children}<SiteFooter content={content} preview={isPreview} /><ClientEnhancements /></ThemeProvider></body></html>;
+  const structuredData = [
+    { "@context": "https://schema.org", "@type": "WebSite", name: content.profile.name, url: `${siteUrl}/` },
+    { "@context": "https://schema.org", "@type": "Person", name: content.profile.name, url: siteUrl, image: `${siteUrl}/icon.png`, description: content.profile.description, alumniOf: [{ "@type": "CollegeOrUniversity", name: "Sitare University" }, { "@type": "EducationalOrganization", name: "Jawahar Navodaya Vidyalaya" }], knowsAbout: ["Product development", "Web development", "Mobile applications", "Artificial intelligence"] },
+  ];
+  return <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth"><head><script dangerouslySetInnerHTML={{ __html: themeInitialiser }} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /></head><body id="top"><ThemeProvider><a href="#main-content" className="skip-link">Skip to content</a><SiteHeader name={content.profile.name} navigation={content.navigation} allPages={content.footerNavigation} />{children}<SiteFooter content={content} preview={isPreview} /><ClientEnhancements /></ThemeProvider></body></html>;
 }
