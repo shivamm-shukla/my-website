@@ -18,6 +18,8 @@ for (const theme of ["light", "dark"] as const) {
 }
 
 test("blog renders sanitized Markdown, code, and article metadata", async ({ page }) => {
+  await page.goto("/blog");
+  await expect(page.getByRole("link", { name: /rss/i })).toHaveCount(0);
   await page.goto("/blog/sample-carrying-context");
   await expect(page.getByRole("heading", { name: "What happens to context when you switch AI tools?" })).toBeVisible();
   await expect(page.locator(".prose pre code")).toContainText("brg switch codex");

@@ -1,5 +1,5 @@
 :root {
-  --bg: #fbfbfd; --surface: #fff; --fg: #1d1d1f; --muted: #6e6e73; --line: #e5e5ea; --accent: #0071e3; --accent-fg: #fff;
+  --bg: #fbfbfd; --surface: #fff; --fg: #1d1d1f; --muted: #5f6066; --line: #e5e5ea; --accent: #0071e3; --accent-fg: #fff;
   --soft: #f1f1f4; --muted-on-soft: #66666b; --glass: #ffffffd9; --shadow-rgb: 28 35 56; --focus: #0071e3;
   --mint: #7ae29c; --green: #237a45; --green-bg: #edf8ee; --lilac: #bf5af2; --pink: #ff9ccf; --yellow: #ffd60a; --peach: #ffe6d6;
   --mac-red: #ff625a; --mac-yellow: #ffbf44; --mac-green: #00c84c;

@@ -1,0 +1,28 @@
+# Portfolio v4 QA report
+
+Last checked: 2026-10-26
+
+## Automated checks
+
+- `pnpm build`: passed on Next.js 16.3.5.
+- `pnpm exec tsc --noEmit --incremental false`: passed.
+- `pnpm test:unit`: 3 test groups passed.
+- `pnpm test:e2e`: 48 Playwright tests passed, including public/admin privacy, content safety, responsive layout, theme switching, navigation, assistant behavior, feed/API responses, and WCAG A/AA axe checks.
+- Home screenshots are captured for light and dark mode at 320, 360, 390, 768, 1024, 1440, 1920, and 2560 px in `docs/screenshots/`.
+
+## Lighthouse
+
+Measured against the local production build at `/`:
+
+| Category | Score |
+| --- | ---: |
+| Performance | 96 |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+Largest Contentful Paint was 2.4 s, Cumulative Layout Shift was 0, and Total Blocking Time was 150 ms in this local Lighthouse run. Lab results can vary by machine; Interaction to Next Paint is not measured by Lighthouse's lab run.
+
+## Awaiting live configuration
+
+Production Auth, database access, Storage uploads, daily cron execution, chat provider behavior, DNS, indexing, and published owner copy still require the owner's Supabase/Vercel accounts and real content. These are listed in `docs/TODO-OWNER.md` and the launch steps are in `docs/DEPLOY.md`.

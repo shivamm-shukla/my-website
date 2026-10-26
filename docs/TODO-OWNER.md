@@ -1,13 +1,13 @@
 # Owner content and setup checklist
 
-Status: the website implementation is complete through data/admin, public writing, assistant, and launch documentation. Credentials and owner-supplied content are still required before production can be called live.
+Status: implementation phases 0–8 are complete in the repository. Production launch is still waiting on owner-supplied identity/content, Supabase and Vercel configuration, migration application where needed, and live verification.
 
 ## Design approval
 
 - [x] Owner requested continuation and authorised realistic dummy data for the preview. Initial implementation can proceed.
 - [x] Owner approved moving on from the revised Phase 1 Home design.
-- [ ] TODO(owner): Review the Phase 2 core pages at `http://localhost:3000/about`, `/work`, `/hire-me`, `/contact`, and `/resume`.
-- [ ] TODO(owner): Review Posts, Blog/article, owner studio setup screen, and the live assistant panel.
+- [ ] TODO(owner): Review the core pages at `/about`, `/work`, `/hire-me`, `/contact`, and `/resume` on the deployed preview.
+- [ ] TODO(owner): Review Posts, Blog/article, Owner Studio, and the assistant on the deployed preview.
 
 ## Identity and contact
 
@@ -37,6 +37,7 @@ Status: the website implementation is complete through data/admin, public writin
 - [ ] TODO(owner): Connect the Vercel project and production environment variables when deployment is ready.
 - [ ] TODO(owner): Select the chat provider/model and configure its server-only key before live AI verification. Canned assistance remains available without it.
 - [ ] TODO(owner): Choose an email notification provider only if inbox notifications are wanted; the admin inbox is the baseline.
+- [ ] TODO(owner): If migration 005 has not already been applied, apply it after migrations 001–004 as described in `docs/DEPLOY.md`. Do not rerun migration 004.
 - [ ] TODO(owner): Apply the project-specific DNS records described in `docs/DEPLOY.md` at the registrar. The agent will not change registrar or social-account settings.
 - [ ] TODO(owner): Verify the daily keep-alive run after production services are connected and agree a regular content-export habit.
 - [ ] TODO(owner): Verify the live site in Google Search Console and Bing Webmaster Tools when ready; submit the generated sitemap and review real indexing reports. Setup instructions will be documented.

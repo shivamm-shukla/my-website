@@ -14,6 +14,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
   const [commandOpen, setCommandOpen] = useState(false);
   const [search, setSearch] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuTrigger = useRef<HTMLButtonElement>(null);
   const resultList = useRef<HTMLUListElement>(null);
   const links = useMemo(() => allPages.filter((page) => ["/", "/about", "/work", "/blog", "/resume", "/contact"].includes(page.href)), [allPages]);
   const matches = useMemo(() => allPages.filter((page) => page.label.toLowerCase().includes(search.trim().toLowerCase())), [search, allPages]);
@@ -27,7 +28,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
       if (!menuRef.current?.contains(event.target as Node)) setMobileOpen(false);
     };
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMobileOpen(false);
+      if (event.key === "Escape" && mobileOpen) { setMobileOpen(false); menuTrigger.current?.focus(); }
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         if (document.querySelector("dialog[open]:not(.command-dialog)")) return;
         event.preventDefault();
@@ -39,7 +40,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
     document.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("keydown", onKeyDown);
     return () => { document.removeEventListener("pointerdown", onPointerDown); window.removeEventListener("keydown", onKeyDown); };
-  }, []);
+  }, [mobileOpen]);
 
   const isActive = (href: string) => href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
@@ -55,7 +56,7 @@ export function SiteHeader({ name, navigation, allPages }: { name: string; navig
           <button type="button" className="icon-button command-trigger" aria-label="Open quick navigation" title="Quick navigation (⌘ / Ctrl K)" onClick={() => { setSearch(""); setCommandOpen(true); }}><Icon name="command" size={17} /></button>
           <ThemeToggle />
           <Link href="/hire-me" className="button button-small header-hire">Hire me <Icon name="arrow-up-right" size={15} /></Link>
-          <button type="button" className="icon-button mobile-menu-trigger" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-nav" onClick={() => setMobileOpen((open) => !open)}><Icon name={mobileOpen ? "close" : "menu"} size={22} /></button>
+          <button ref={menuTrigger} type="button" className="icon-button mobile-menu-trigger" aria-label={mobileOpen ? "Close menu" : "Open menu"} aria-expanded={mobileOpen} aria-controls="mobile-nav" onClick={() => setMobileOpen((open) => !open)}><Icon name={mobileOpen ? "close" : "menu"} size={22} /></button>
         </div>
       </div>
       <nav id="mobile-nav" className={`mobile-nav-panel${mobileOpen ? " open" : ""}`} aria-label="Mobile navigation" aria-hidden={!mobileOpen}>

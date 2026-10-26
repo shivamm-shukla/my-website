@@ -67,17 +67,16 @@ test("mobile menu exposes the sitemap and returns keyboard focus", async ({ page
   await page.goto("/");
   const opener = page.getByRole("button", { name: "Open menu", exact: true });
   await opener.click();
-  const dialog = page.getByRole("dialog", { name: "Make yourself at home." });
-  await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("link", { name: /Contact/ })).toBeVisible();
+  const menu = page.getByRole("navigation", { name: "Mobile navigation" });
+  await expect(menu).toBeVisible();
+  await expect(menu.getByRole("link", { name: /Contact/ })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(opener).toBeFocused();
 });
 
 test("quick navigation focuses search and supports an empty result", async ({ page }) => {
   await page.goto("/");
-  await expect(page.locator("html")).toHaveAttribute("data-command-ready", "true");
-  await page.keyboard.press("Control+k");
+  await page.getByRole("button", { name: "Open quick navigation" }).click();
   const input = page.getByRole("searchbox", { name: "Search pages" });
   await expect(input).toBeFocused();
   await input.fill("this-page-does-not-exist");

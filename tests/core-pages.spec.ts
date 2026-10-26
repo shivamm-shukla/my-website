@@ -19,10 +19,11 @@ for (const theme of ["light", "dark"] as const) {
 
 test("work filters projects without losing the case-study links", async ({ page }) => {
   await page.goto("/work");
-  await expect(page.locator(".work-row")).toHaveCount(3);
+  await expect(page.locator(".project-tile")).toHaveCount(3);
   await page.getByRole("button", { name: "Education" }).click();
-  await expect(page.locator(".work-row")).toHaveCount(1);
-  await expect(page.getByRole("link", { name: /Explore Jeetlo/i })).toHaveAttribute("href", "/work/jeetlo");
+  await expect(page.locator(".project-tile")).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Jeetlo" }).getByRole("link")).toHaveAttribute("href", "/work/jeetlo");
+  await expect(page.getByRole("link", { name: "Case study" })).toHaveAttribute("href", "/work/jeetlo");
 });
 
 test("contact form exposes useful validation and an honest inbox state", async ({ page }) => {
