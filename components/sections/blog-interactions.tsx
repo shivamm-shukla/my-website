@@ -3,20 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useActionState, useEffect, useRef, useState } from "react";
-import type { BlogArticle } from "@/lib/content/types";
+import type { BlogArticle, EditorialPromotions } from "@/lib/content/types";
 import type { PublicBlogComment } from "@/lib/content/repository";
 import { submitBlogComment, subscribeToBlog, type ReaderActionState } from "@/app/blog/actions";
 import { Icon } from "@/components/ui/icon";
+import { EditorialArtShape } from "@/components/sections/editorial-art-shape";
 
 const savedKey = "shivam-saved-posts";
 const initialActionState: ReaderActionState = { status: "idle", message: "" };
 function readSaved(): string[] {
   try { const value: unknown = JSON.parse(localStorage.getItem(savedKey) || "[]"); return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string") : []; }
   catch { return []; }
-}
-
-function BlogPlaceholderArt({ treatment }: { treatment: "blue" | "lilac" | "peach" }) {
-  return <div className={`editorial-art editorial-art-${treatment}`} aria-hidden="true"><div className={`sculpture sculpture-${treatment}`}><span className="sculpture-shadow"/><span className="sculpture-plinth"/><span className="sculpture-arch"/><span className="sculpture-orb"/><span className="sculpture-bead"/></div></div>;
 }
 
 export function BlogBrowser({ articles }: { articles: BlogArticle[] }) {
@@ -51,9 +48,9 @@ export function BlogBrowser({ articles }: { articles: BlogArticle[] }) {
         const tag = article.tags?.[0] || article.tag || "Notes";
         const date = article.publishedAt ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(article.publishedAt)) : article.isDemo ? "Sample article" : "";
         return <article className="blog-list-card" key={article.slug}>
-          <Link href={`/blog/${article.slug}`} className="blog-row-link">
-            <div className="blog-list-cover">{article.coverUrl ? <Image src={article.coverUrl} alt="" fill sizes="(max-width: 700px) 94vw, 40vw" unoptimized/> : <BlogPlaceholderArt treatment={article.treatment || "blue"}/>}</div>
-            <div className="blog-list-body"><div className="blog-card-meta"><span>{tag}</span><span>{article.readingTime} min read</span></div><h2>{article.title}</h2>{article.excerpt && <p>{article.excerpt}</p>}<div className="blog-card-bottom"><span>{date}</span><span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={19}/></span></div></div>
+          <Link href={`/blog/${article.slug}`} className="blog-card-link">
+            <div className="blog-list-cover">{article.coverUrl ? <Image src={article.coverUrl} alt="" fill sizes="(max-width: 700px) 94vw, (max-width: 1000px) 46vw, 30vw" unoptimized/> : <EditorialArtShape treatment={article.treatment || "blue"}/>}</div>
+            <div className="blog-list-body"><div className="blog-card-meta"><span>{tag}</span><span>{article.readingTime} min read</span></div><h2>{article.title}</h2>{article.excerpt && <p>{article.excerpt}</p>}<div className="blog-card-bottom"><span>{date}</span><span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={18}/></span></div></div>
           </Link>
           <button className="blog-save-button" type="button" aria-pressed={saved.includes(article.slug)} aria-label={saved.includes(article.slug) ? `Remove ${article.title} from saved articles` : `Save ${article.title}`} onClick={() => toggleSaved(article.slug)}><Icon name="bookmark" size={17}/></button>
         </article>;
@@ -81,7 +78,7 @@ export function ArticleProgress() {
   return <div className="reading-progress" aria-hidden="true"/>;
 }
 
-export function ArticleToolbar({ slug, title, content }: { slug: string; title: string; content: string }) {
+export function ArticleToolbar({ slug, title, content, author }: { slug: string; title: string; content: string; author: string }) {
   const [saved, setSaved] = useState(false);
   const [appreciated, setAppreciated] = useState(false);
   const [fontSize, setFontSize] = useState(19);
@@ -142,7 +139,7 @@ export function ArticleToolbar({ slug, title, content }: { slug: string; title: 
     try { localStorage.setItem("shivam-reading-serif", next ? "yes" : "no"); } catch { /* Use the preference for this visit. */ }
   };
   return <div className="article-toolbar" aria-label="Article controls">
-    <button type="button" className="article-tool-share" onClick={() => window.dispatchEvent(new CustomEvent("share:open", { detail: { kind: "blog", title, description: document.querySelector(".article-header-copy > p")?.textContent || "A note from Shivam Shukla.", category: document.querySelector(".article-header-copy .blog-card-meta > span")?.textContent || "Journal", meta: "Shivam Shukla · Article", cta: "Read the article", path: `/blog/${slug}`, url: window.location.href } }))}><Icon name="share" size={17}/>Share to story</button>
+    <button type="button" className="article-tool-share" onClick={() => window.dispatchEvent(new CustomEvent("share:open", { detail: { kind: "blog", title, description: document.querySelector(".article-header-copy > p")?.textContent || "", category: document.querySelector(".article-header-copy .blog-card-meta > span")?.textContent || "Journal", meta: `${author} · Article`, cta: "Read the article", path: `/blog/${slug}`, url: window.location.href } }))}><Icon name="share" size={17}/>Share to story</button>
     <button type="button" aria-pressed={appreciated} onClick={toggleAppreciated}><Icon name="heart" size={17}/> {appreciated ? "Appreciated" : "Appreciate"}</button>
     <button type="button" aria-pressed={saved} onClick={setSavedValue}><Icon name="bookmark" size={17}/> {saved ? "Saved" : "Save"}</button>
     {canSpeak && <button type="button" aria-pressed={speaking} onClick={toggleSpeak}><Icon name="volume" size={17}/>{speaking ? "Stop" : "Listen"}</button>}
@@ -153,9 +150,10 @@ export function ArticleToolbar({ slug, title, content }: { slug: string; title: 
   </div>;
 }
 
-export function BlogSubscribeCard() {
+export function BlogSubscribeCard({ settings }: { settings: EditorialPromotions["newsletter"] }) {
   const [state, action, pending] = useActionState(subscribeToBlog, initialActionState);
-  return <section className="site-container reader-card blog-subscribe-card"><span className="page-kicker">A short note, now and then</span><h2>When something’s worth sharing.</h2><p>Get an occasional email when a new article is ready. Unsubscribe any time.</p><form action={action} className="reader-form"><label>Email address<input type="email" name="email" autoComplete="email" required maxLength={160}/></label><label className="reader-consent"><input type="checkbox" name="consent" required/><span>I agree to receive occasional writing updates from Shivam.</span></label><div className="reader-honeypot" aria-hidden="true"><label>Company website<input name="company" tabIndex={-1} autoComplete="off"/></label></div><button type="submit" className="button" disabled={pending}>{pending ? "Joining…" : "Subscribe"}<Icon name="arrow-right" size={17}/></button><p className={`reader-status reader-status-${state.status}`} aria-live="polite">{state.message}</p></form></section>;
+  if (!settings.enabled || !settings.label || !settings.title || !settings.body || !settings.consent || !settings.cta) return null;
+  return <section className="reader-card blog-subscribe-card"><span className="page-kicker">{settings.label}</span><h2>{settings.title}</h2><p>{settings.body}</p><form action={action} className="reader-form"><label>Email address<input type="email" name="email" autoComplete="email" required maxLength={160}/></label><label className="reader-consent"><input type="checkbox" name="consent" required/><span>{settings.consent}</span></label><input type="hidden" name="consent_copy" value={settings.consent}/><div className="reader-honeypot" aria-hidden="true"><label>Company website<input name="company" tabIndex={-1} autoComplete="off"/></label></div><button type="submit" className="button" disabled={pending}>{pending ? "Joining…" : settings.cta}<Icon name="arrow-right" size={17}/></button><p className={`reader-status reader-status-${state.status}`} aria-live="polite">{state.message}</p></form></section>;
 }
 
 export function ArticleBody({ html, url, title }: { html: string; url: string; title: string }) {
@@ -214,12 +212,8 @@ export function ArticleBody({ html, url, title }: { html: string; url: string; t
 }
 
 export function ArticleAudience({ slug, comments }: { slug: string; comments: PublicBlogComment[] }) {
-  const [subscribeState, subscribeAction, subscribePending] = useActionState(subscribeToBlog, initialActionState);
   const [commentState, commentAction, commentPending] = useActionState(submitBlogComment, initialActionState);
   return <div className="article-audience">
-    <section className="reader-card subscribe-card"><span className="page-kicker">Occasional notes</span><h2>New writing, when it’s ready.</h2><p>One short email when there’s something worth sharing. Unsubscribe any time.</p>
-      <form action={subscribeAction} className="reader-form"><label>Email address<input type="email" name="email" autoComplete="email" required maxLength={160}/></label><label className="reader-consent"><input type="checkbox" name="consent" required/><span>I agree to receive occasional writing updates from Shivam.</span></label><div className="reader-honeypot" aria-hidden="true"><label>Company website<input name="company" tabIndex={-1} autoComplete="off"/></label></div><button type="submit" className="button" disabled={subscribePending}>{subscribePending ? "Joining…" : "Subscribe"}<Icon name="arrow-right" size={17}/></button><p className={`reader-status reader-status-${subscribeState.status}`} aria-live="polite">{subscribeState.message}</p></form>
-    </section>
     <section className="reader-card discussion-card"><span className="page-kicker">Discussion</span><h2>A thoughtful reply?</h2><p>Comments appear after review. Please keep it kind and useful.</p>
       {comments.length > 0 ? <ul className="approved-comments">{comments.map((comment) => <li key={comment.id}><strong>{comment.name}</strong><p>{comment.body}</p><time dateTime={comment.createdAt}>{new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(new Date(comment.createdAt))}</time></li>)}</ul> : <p className="no-comments">No replies yet.</p>}
       <form action={commentAction} className="reader-form"><input type="hidden" name="slug" value={slug}/><label>Your name<input name="name" autoComplete="name" required minLength={2} maxLength={60}/></label><label>Your comment<textarea name="body" required minLength={10} maxLength={2000} rows={4}/></label><div className="reader-honeypot" aria-hidden="true"><label>Website<input name="website" tabIndex={-1} autoComplete="off"/></label></div><button type="submit" className="button button-secondary" disabled={commentPending}>{commentPending ? "Sending…" : "Send for review"}<Icon name="send" size={16}/></button><p className={`reader-status reader-status-${commentState.status}`} aria-live="polite">{commentState.message}</p></form>

@@ -101,6 +101,7 @@ body::before {
 .project-card { position: relative; border-radius: 32px; min-width: 0; overflow: hidden; border: 1px solid var(--card-edge); transition: transform 400ms var(--spring), box-shadow 300ms ease; }
 .project-card:focus-within { outline: 3px solid var(--focus); outline-offset: 5px; }
 .project-link { position: relative; display: block; min-height: 480px; height: 100%; }
+.project-art-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .project-link:focus-visible { outline: none; }
 .project-care { grid-column: 1 / -1; background: var(--care-bg); color: var(--care-ink); }
 .project-terminal { background: var(--terminal-bg); color: var(--terminal-ink); border-color: var(--terminal-line); }

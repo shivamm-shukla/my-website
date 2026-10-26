@@ -6,7 +6,6 @@ import { createSupabaseAdminClient } from "@/lib/supabase/server";
 import { rateLimit } from "@/lib/rate-limit";
 
 export type ReaderActionState = { status: "idle" | "error" | "unavailable" | "success"; message: string };
-const consentText = "I agree to receive occasional writing updates from Shivam. I can unsubscribe at any time.";
 
 async function requestIdentity() {
   const requestHeaders = await headers();
@@ -21,6 +20,8 @@ export async function subscribeToBlog(_: ReaderActionState, formData: FormData):
   if (!await rateLimit("blog-subscribe", await requestIdentity(), 3, 60 * 60 * 1000)) return { status: "error", message: "Too many attempts. Please try again later." };
   const client = createSupabaseAdminClient();
   if (!client) return { status: "unavailable", message: "Subscriptions are not connected yet. Your address was not stored." };
+  const consentText = String(formData.get("consent_copy") || "").trim().slice(0, 180);
+  if (consentText.length < 8) return { status: "error", message: "Please confirm the subscription consent text." };
   const { error } = await client.from("subscribers").insert({ email, consent_text: consentText, source: "blog" });
   if (error && error.code !== "23505") return { status: "error", message: "Could not save your subscription. Please try again." };
   return { status: "success", message: error ? "You’re already on the list." : "You’re subscribed. Thank you." };

@@ -3,7 +3,7 @@
 ## 1. Create Supabase
 
 1. Create a Supabase project and open **SQL Editor**.
-2. Run `supabase/migrations/001_initial.sql` in full. This creates the four content tables, private rate limits, RLS policies, storage bucket, indexes, and the three confirmed projects.
+2. For a new database, run the SQL files in `supabase/migrations/` in numeric order. If migrations through 004 have already been applied, apply only `005_project_story_fields.sql`; it safely ensures the owner-editable public settings table and adds editable project feature headings and blog resource links.
 3. In **Authentication → Users**, create the owner user with the same email that will be placed in `OWNER_EMAIL`.
 4. Copy the Project URL, anon key, and service-role key from **Project Settings → API**. Keep the service-role key server-only.
 

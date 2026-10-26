@@ -32,6 +32,12 @@ export const siteContent: SiteContent = {
     { platform: "email", label: "Email", url: null },
   ],
   sections: ["hero", "work", "focus", "journey", "posts", "writing", "hire"].map((type) => ({ id: type, type, visible: true })) as SiteContent["sections"],
+  promotions: {
+    newsletter: { enabled: false, label: "", title: "", body: "", consent: "", cta: "" },
+    sponsor: { enabled: false, label: "", title: "", body: "", cta: "", url: "" },
+    focus: { enabled: false, label: "", title: "", description: "", projectSlug: "" },
+    thought: { enabled: false, label: "", body: "", byline: "" },
+  },
   projects: [
     {
       id: "thravia", slug: "thravia", title: "Thravia", category: "Product",
@@ -41,7 +47,7 @@ export const siteContent: SiteContent = {
       problem: "Families cannot always travel with a loved one for a hospital visit. Distance can turn an already difficult day into a lonely one.",
       built: "Thravia lets a family book a trusted companion who can be there for the hospital visit and support their loved one in person.",
       outcome: "Thravia is currently being built. Real usage and outcome details will be added only after they are ready to publish.",
-      tech: [], published: true,
+      tech: [], features: [], featuresHeading: "", processSteps: [], extraLinks: [], published: true,
     },
     {
       id: "brg-cli", slug: "brg-cli", title: "brg-cli", category: "Developer tools",
@@ -51,7 +57,7 @@ export const siteContent: SiteContent = {
       problem: "Moving between AI coding CLIs usually means rebuilding the same project context for each tool.",
       built: "A git-style command-line tool that switches between Claude Code and Codex while carrying project context along.",
       outcome: "The package is published on npm as brg-cli. Usage numbers and technical details are waiting for owner confirmation.",
-      tech: [], published: true,
+      tech: [], features: [], featuresHeading: "", processSteps: [], extraLinks: [], published: true,
     },
     {
       id: "jeetlo", slug: "jeetlo", title: "Jeetlo", category: "Education",
@@ -61,7 +67,7 @@ export const siteContent: SiteContent = {
       problem: "Hindi-medium students from rural areas need exam preparation that feels clear, familiar, and made for their context.",
       built: "An AI-powered Android app for students preparing for JNVST and CHS in Hindi.",
       outcome: "Jeetlo exists as an Android app. Screenshots, technology choices, links, and measured outcomes still need owner confirmation.",
-      tech: [], published: true,
+      tech: [], features: [], featuresHeading: "", processSteps: [], extraLinks: [], published: true,
     },
   ],
   timeline: [
@@ -87,11 +93,11 @@ export const siteContent: SiteContent = {
       note: "Made for\nreal people.",
       caption: "A little curiosity goes a long way.",
     },
-    work: { title: "Selected work.", description: "Different problems. The same care for the people behind them." },
+    work: { title: "Selected work.", description: "Different problems. The same care for the people behind them.", archiveTitle: "Work.", archiveDescription: "Each project has a case study and a how-to, with every link in one place." },
     focus: { label: "On my desk right now", title: "Thravia", description: "Making hospital visits feel a little less lonely." },
     journey: { title: "A little of my story.", description: "A student, a builder. Always a beginner at something." },
     posts: { title: "From my corner of the internet.", description: "Small thoughts on the things I’m building and figuring out." },
-    writing: { title: "Thinking out loud.", description: "A little more room for the ideas that stick around." },
+    writing: { title: "Blog.", description: "Guides, build notes, and opinions." },
     hire: { title: "Something on your mind?\nLet’s build it.", description: "Websites, apps, and thoughtful AI features. Tell me what you have in mind.", action: "Start a conversation" },
   },
 };
