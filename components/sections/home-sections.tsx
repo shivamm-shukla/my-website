@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { SiteContent } from "@/lib/content/types";
 import { Icon } from "@/components/ui/icon";
 import { BrandIcon } from "@/components/ui/brand-icon";
@@ -29,16 +30,22 @@ function SectionHeader({ title, description, href, linkText }: { title: string; 
 export function WorkSection({ content }: { content: SiteContent }) {
   return <section className="work-section section-space site-container" id="work" aria-label="Selected work">
     <SectionHeader {...content.home.work} href="/work" linkText="All projects" />
-    <div className="project-grid">{content.projects.map((project) => <article key={project.id} className={`project-card project-${project.treatment}`}><Link href={`/work/${project.slug}`} className="project-link">
-      <div className="project-copy"><div className="project-topline"><span className="project-category">{project.category}</span><span className="project-open"><Icon name="arrow-up-right" size={18} /></span></div><h3>{project.title}</h3><p className="project-tagline">{project.headline}</p><p className="project-description">{project.summary}</p></div>
-      <ProjectArt treatment={project.treatment} />
-      <div className="project-status"><span className={project.id === "thravia" ? "status-dot" : "status-symbol"}>{project.id === "brg-cli" ? <Icon name="code" size={14} /> : project.id === "jeetlo" ? <Icon name="book" size={13} /> : null}</span>{project.status}</div>
-    </Link></article>)}</div>
+    <div className="project-grid">{content.projects.map((project) => <article key={project.id} className={`project-card project-${project.treatment}`}>
+      <div className="project-link project-card-main">
+        <div className="project-copy"><div className="project-topline"><span className="project-category">{project.category}</span><span className="project-open"><Icon name="arrow-up-right" size={18} /></span></div><h3><Link href={`/work/${project.slug}`}>{project.title}</Link></h3><p className="project-tagline">{project.headline}</p><p className="project-description">{project.summary}</p></div>
+        {project.coverUrl ? <Image className="project-art-cover" src={project.coverUrl} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" unoptimized/> : <ProjectArt treatment={project.treatment} />}
+      </div>
+      <div className="project-card-footer">
+        <span className="project-status"><span className={project.id === "thravia" ? "status-dot" : "status-symbol"}>{project.id === "brg-cli" ? <Icon name="code" size={14} /> : project.id === "jeetlo" ? <Icon name="book" size={13} /> : null}</span>{project.status}</span>
+        <div className="project-card-actions"><Link href={`/work/${project.slug}`}>Case study<Icon name="arrow-right" size={15} /></Link>{project.externalUrl && <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">Live site<Icon name="arrow-up-right" size={15} /></a>}</div>
+      </div>
+    </article>)}</div>
   </section>;
 }
 
 export function FocusSection({ content }: { content: SiteContent }) {
-  return <section className="focus-strip site-container" aria-label="Currently building"><span className="focus-icon"><Icon name="heart" size={23} /></span><div className="focus-copy"><span>{content.home.focus.label}</span><p><strong>{content.home.focus.title}.</strong> {content.home.focus.description}</p></div><a href="https://thravia.app" target="_blank" rel="noopener noreferrer" className="focus-link">Take a look <Icon name="arrow-up-right" size={17} /></a></section>;
+  const currentProject = content.projects.find((project) => project.title === content.home.focus.title);
+  return <section className="focus-strip site-container" aria-label="Currently building"><span className="focus-icon"><Icon name="heart" size={23} /></span><div className="focus-copy"><span>{content.home.focus.label}</span><p><strong>{content.home.focus.title}.</strong> {content.home.focus.description}</p></div>{currentProject?.externalUrl && <a href={currentProject.externalUrl} target="_blank" rel="noopener noreferrer" className="focus-link">Take a look <Icon name="arrow-up-right" size={17} /></a>}</section>;
 }
 
 export function JourneySection({ content }: { content: SiteContent }) {
@@ -53,8 +60,8 @@ export function PostsSection({ content }: { content: SiteContent }) {
   if (!content.posts.length) return null;
   return <section className="posts-section section-space" id="posts"><div className="site-container">
     <SectionHeader {...content.home.posts} href="/posts" linkText="All posts" />
-    <div className="posts-grid">{content.posts.map((post) => <article className="post-card" key={post.id}><div className="post-author"><span className="post-avatar">s<span>.</span></span><span><strong>{content.profile.name}</strong><small>{post.platform === "linkedin" ? "On LinkedIn" : "On X"}</small></span><BrandIcon platform={post.platform} size={19} /></div><p className="post-caption">{post.caption}</p><div className="post-bottom"><span>{post.topic}</span><span className="sample-label">Sample post</span></div></article>)}</div>
-    <p className="sample-explanation">A preview of the feed. These sample posts will be replaced with my own.</p>
+    <div className="posts-grid">{content.posts.map((post) => <article className="post-card" key={post.id}><div className="post-author"><span className="post-avatar">s<span>.</span></span><span><strong>{content.profile.name}</strong><small>{post.platform === "linkedin" ? "On LinkedIn" : "On X"}</small></span><BrandIcon platform={post.platform} size={19} /></div><p className="post-caption">{post.caption}</p><div className="post-bottom"><span>{post.topic}</span>{post.isDemo && <span className="sample-label">Sample post</span>}</div></article>)}</div>
+    {content.posts.some((post) => post.isDemo) && <p className="sample-explanation">A preview of the feed. These sample posts will be replaced with my own.</p>}
   </div></section>;
 }
 
@@ -64,11 +71,11 @@ export function WritingSection({ content }: { content: SiteContent }) {
     <SectionHeader {...content.home.writing} href="/blog" linkText="Visit the blog" />
     <div className="writing-grid">{content.articles.map((article) => <article className="writing-card" key={article.slug}>
       <Link href={"/blog/" + article.slug} className="writing-link">
-        <EditorialArt treatment={article.treatment || "blue"} />
+        {article.coverUrl ? <div className="editorial-art"><Image className="editorial-image" src={article.coverUrl} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" unoptimized/></div> : <EditorialArt treatment={article.treatment || "blue"} />}
         <div className="writing-body">
           <div className="writing-meta"><span>{article.tags?.[0] || article.tag || "Journal"}</span><span>{article.readingTime} min read</span></div>
           <h3>{article.title}</h3>
-          <div className="writing-bottom"><span className="sample-label">Sample article</span><span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={20} /></span></div>
+          <div className="writing-bottom">{article.isDemo && <span className="sample-label">Sample article</span>}<span className="writing-open" aria-hidden="true"><Icon name="arrow-up-right" size={20} /></span></div>
         </div>
       </Link>
     </article>)}</div>

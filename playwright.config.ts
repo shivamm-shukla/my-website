@@ -6,7 +6,7 @@ export default defineConfig({
   fullyParallel: true,
   workers: 2,
   timeout: 45_000,
-  reporter: [["list"], ["html", { open: "never", outputFolder: "docs/test-report" }]],
+  reporter: [["list"], ["html", { open: "never", outputFolder: "playwright-report" }]],
   use: {
     baseURL: "http://127.0.0.1:3000",
     trace: "retain-on-failure",

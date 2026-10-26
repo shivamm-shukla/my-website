@@ -74,6 +74,18 @@ test("mobile menu exposes the sitemap and returns keyboard focus", async ({ page
   await expect(opener).toBeFocused();
 });
 
+test("footer hides preview badges and provides the private owner login", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByText("Design preview")).toHaveCount(0);
+  await expect(page.getByText(/All rights reserved\./)).toBeVisible();
+  const login = page.getByRole("link", { name: "Owner login" });
+  await expect(login).toHaveAttribute("href", "/admin/login");
+  await login.click();
+  await expect(page).toHaveURL(/\/admin\/login$/);
+  await expect(page.getByRole("heading", { name: "Welcome back, Shivam." })).toBeVisible();
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
+});
+
 test("quick navigation focuses search and supports an empty result", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Open quick navigation" }).click();

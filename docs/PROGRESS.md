@@ -1,32 +1,34 @@
 # Delivery status
 
-Updated: 25 October 2026.
+Updated: 26 October 2026.
 
-The production website implementation is complete through all five delivery phases. The local production preview is available at `http://localhost:3000` while the current review session is running.
+Feature implementation phases 0–7 are complete in the repository. Final QA still has eight failing public interaction checks; the production site has not been deployed or connected to the owner's live services.
 
 ## Completed
 
-- Foundation and Home: token-based light/dark themes, responsive navigation, full Home experience, supplied artwork, and the persistent robot companion.
-- Core pages: About, Work and three case studies, Hire me, Contact, Resume, and the mascot-led 404.
-- Publishing and owner studio: Supabase schema/RLS/storage, protected owner authentication, CRUD for posts/blogs/projects, media uploads, inbox, public Posts and Blog, safe Markdown, RSS, and the daily keep-alive route.
-- Assistant: grounded multilingual streaming chat, provider abstraction for OpenAI/Anthropic/Gemini, input and rate limits, prompt-injection safeguards, privacy copy, and offline fallback answers.
-- Launch polish: per-page metadata, JSON-LD, sitemap, robots, manifest, dynamic OG images, security headers, responsive screenshots, deployment documentation, and final accessibility/performance review.
+- Foundation and Home: token-based light/dark themes, responsive navigation, the Home experience, supplied artwork, and the persistent robot companion.
+- Core pages: About, Work and case studies, Hire me, Contact, Resume, Posts, Blog, and the friendly 404.
+- Owner Studio: protected content management for public copy, projects, posts, blogs, social links, page sections, subscribers, comments, and inbox messages.
+- Assistant and launch features: grounded multilingual chat with safeguards and fallback, RSS, keep-alive endpoint, metadata, JSON-LD, sitemap, robots, dynamic OG images, and deployment documentation.
+- QA and cleanup: responsive screenshots, accessibility checks, mode-specific crawl behavior, and Lighthouse review.
 
 ## Verification
 
-- `npm run build`: passed; all public, admin, API, RSS, sitemap, and manifest routes compile.
-- `npm run test:unit`: passed; 13 checks.
-- `npm run test:e2e`: passed; 48 Playwright and axe checks across responsive layouts, themes, public pages, admin setup, APIs, Posts, Blog, and articles.
-- `git diff --check`: passed.
-- Lighthouse mobile Home: Performance 98, Accessibility 100, Best Practices 100, SEO 100; LCP 2.4s, TBT 30ms, CLS 0.
-- Evidence is saved under `docs/screenshots/`, `docs/test-report/`, and `docs/lighthouse/`.
+- `pnpm build`: passed; all public, admin, API, RSS, sitemap, and manifest routes compile.
+- `pnpm exec tsc --noEmit --incremental false`: passed.
+- `pnpm test:unit`: passed; all 3 test groups.
+- `pnpm test:e2e`: latest run passed 42 of 50 checks. Eight public interaction checks failed (work filters, theme persistence, assistant, mobile navigation, quick navigation, and motion). Authenticated database writes remain unverified without live Supabase access.
+- Sitemap and robots behavior passed in Vercel Preview and Production mode tests.
+- `git diff --check`: passed before final cleanup changes.
+- Lighthouse mobile Home: Performance 96, Accessibility 100, Best Practices 100, SEO 100; LCP 2.4 s, TBT 150 ms, CLS 0.
+- Evidence is saved under `docs/screenshots/` and `docs/lighthouse/`.
 
 ## Production connection still required
 
-The code is ready, but live external services cannot be verified until the owner connects them. Supabase persistence/auth/storage, live AI replies, the scheduled cron execution, contact delivery, Vercel deployment, DNS, and search-engine indexing need real credentials or external account access. Follow `docs/DEPLOY.md` and complete the items in `docs/TODO-OWNER.md`.
+Live external services cannot be verified until the owner connects them. Supabase persistence/auth/storage, live AI replies, scheduled cron execution, Vercel deployment, DNS, and search-engine indexing need real credentials or external account access. Apply migration 005 after the already-applied 004 if it is not applied yet. Follow `docs/DEPLOY.md` and complete the items in `docs/TODO-OWNER.md`.
 
-Sample posts and articles are visibly labelled in design-preview mode. They are not represented as real achievements or published owner content.
+Sample posts and articles are visibly labelled in design-preview mode and excluded from live publishing and the live sitemap.
 
 ## Git
 
-Commits use Shivam's configured identity with plain commit messages and no co-author or tool signature. No push or external deployment is included in this delivery.
+Commits use plain messages with no co-author or tool signature. The owner requested a final push; deployment is separate.

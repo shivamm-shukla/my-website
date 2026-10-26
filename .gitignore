@@ -18,7 +18,5 @@ docs/*
 !docs/lighthouse/**
 !docs/screenshots/
 !docs/screenshots/**
-!docs/test-report/
-!docs/test-report/**
 AGENTS.md
 
