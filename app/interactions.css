@@ -29,7 +29,8 @@ kbd { font-size: 11px; padding: 2px 4px; border: 1px solid var(--line); border-r
 .robot-eyes { transition: transform 120ms ease-out; }
 .robot-hand-wave { animation: hand-wave 8s ease-in-out infinite; }
 .robot-offscreen *, .tab-hidden *, .tab-hidden *::before, .tab-hidden *::after { animation-play-state: paused !important; }
-.assistant-launcher { --safe-bottom: env(safe-area-inset-bottom, 0px); position: fixed; right: 12px; bottom: 24px; z-index: 45; width: 76px; height: 92px; margin: 0; padding: 0; border: 0; background: transparent; visibility: visible; }
+.assistant-launcher { --safe-bottom: env(safe-area-inset-bottom, 0px); position: fixed; right: 12px; bottom: 24px; z-index: 45; width: 76px; height: 92px; margin: 0; padding: 0; border: 0; background: transparent; visibility: visible; cursor: grab; }
+.assistant-launcher:active { cursor: grabbing; }
 .assistant-launcher { touch-action: none; user-select: none; -webkit-user-select: none; }
 .assistant-launcher:focus-visible { border-radius: 24px; }
 .assistant-launcher > .robot-art { width: 100%; height: 100%; transition: rotate 500ms var(--ease-out); }
@@ -66,7 +67,7 @@ kbd { font-size: 11px; padding: 2px 4px; border: 1px solid var(--line); border-r
 .assistant-bottom > span { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-size: 11px; }
 .assistant-privacy { color: var(--muted); font-size: 12px; line-height: 1.65; margin-top: 8px; }
 @media (max-width: 1099px) {
-  .assistant-launcher { width: 46px; height: 56px; top: calc(8px + env(safe-area-inset-top, 0px)); bottom: auto; right: calc(var(--gutter) + 48px); }
+  .assistant-launcher { width: 46px; height: 56px; top: 0; bottom: auto; right: 0; }
   .assistant-launcher .assistant-bubble { top: calc(100% + 10px); bottom: auto; right: 0; border-radius: 5px 18px 18px 18px; }
 }
 @media (max-width: 600px) {

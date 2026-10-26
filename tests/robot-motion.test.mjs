@@ -6,11 +6,10 @@ test('wide screens give the companion a permanent position outside the content',
   assert.deepEqual(companionHome({ width: 1440, height: 900, size: { width: 76, height: 92 } }), { x: 1352, y: 784 });
 });
 
-test('phones use the reserved navigation slot without covering neighbouring controls', () => {
-  const slot = { left: 242, top: 4, width: 48, height: 56 };
-  const point = companionHome({ width: 390, height: 844, size: { width: 46, height: 56 }, slot });
-  assert.deepEqual(point, { x: 243, y: 4 });
-  assert.ok(point.x >= slot.left && point.x + 46 <= slot.left + slot.width);
+test('phones place the small companion at the safe lower edge, away from the top navigation', () => {
+  const point = companionHome({ width: 390, height: 844, size: { width: 46, height: 56 }, safeBottom: 0 });
+  assert.deepEqual(point, { x: 332, y: 764 });
+  assert.ok(point.y > 70);
 });
 
 test('short windows keep the complete robot on screen', () => {
@@ -37,6 +36,13 @@ test('idle travel stays in the same spare margin across 1,600 layouts', () => {
   }
 });
 
+test('roaming selects a visibly different safe vertical position on narrow screens', () => {
+  const home = companionHome({ width: 390, height: 844, size: { width: 46, height: 56 } });
+  const next = nextRoamPosition({ home, current: home, random: () => 0 });
+  assert.equal(next.x, home.x);
+  assert.equal(next.y, home.y - 180);
+});
+
 function fixture() {
   const names = ['window', 'document', 'matchMedia', 'MutationObserver', 'ResizeObserver', 'requestAnimationFrame', 'cancelAnimationFrame', 'getComputedStyle', 'clearTimeout'];
   const saved = new Map(names.map(name => [name, Object.getOwnPropertyDescriptor(globalThis, name)]));
@@ -46,6 +52,7 @@ function fixture() {
   const pref = new EventTarget();
   pref.matches = false;
   win.innerHeight = 900;
+  win.innerWidth = 1440;
   win.visualViewport = Object.assign(new EventTarget(), { height: 900 });
   win.setTimeout = callback => { const id = ++env.nextTimer; env.timers.set(id, callback); return id; };
   doc.hidden = false;
@@ -55,6 +62,7 @@ function fixture() {
   const launcher = Object.assign(new EventTarget(), {
     style: {}, dataset: {}, offsetWidth: 76, offsetHeight: 92, tabIndex: 0,
     matches: () => false,
+    setPointerCapture() {},
     getBoundingClientRect() {
       const match = this.style.transform?.match(/translate3d\(([-\d.]+)px,([-\d.]+)px/);
       return { left: Number(match?.[1] || 0), top: Number(match?.[2] || 0) };
@@ -163,5 +171,18 @@ test('hidden tabs pause movement and restore the same flight on return', () => {
     f.doc.dispatchEvent(new Event('visibilitychange'));
     assert.equal(f.env.animation, animation);
     assert.equal(animation.playState, 'running');
+  } finally { f.restore(); }
+});
+
+test('dragging pins the robot at the pointer and prevents the button click from opening chat', () => {
+  const f = fixture();
+  const pointer = (type, values) => Object.assign(new Event(type), values);
+  try {
+    f.launcher.dispatchEvent(pointer('pointerdown', { button: 0, pointerId: 3, pointerType: 'mouse', clientX: 1380, clientY: 800 }));
+    f.launcher.dispatchEvent(pointer('pointermove', { pointerId: 3, pointerType: 'mouse', clientX: 1000, clientY: 500 }));
+    f.launcher.dispatchEvent(pointer('pointerup', { pointerId: 3, pointerType: 'mouse', clientX: 1000, clientY: 500 }));
+    assert.equal(f.launcher.dataset.pinned, 'true');
+    assert.equal(f.launcher.dataset.state, 'pinned');
+    assert.equal(f.launcher.style.transform, 'translate3d(962px,454px,0)');
   } finally { f.restore(); }
 });
