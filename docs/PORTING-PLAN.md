@@ -42,7 +42,7 @@
 - [x] Phase 3: content pages.
 - [x] Phase 4: Blog.
 - [x] Phase 5: share system (story, square, and link formats; article and project share entry points; OG robot mark).
-- [ ] Phase 6: site bot.
+- [x] Phase 6: site bot (persistent root mount, long-press chat, drag-to-pin with session persistence, idle sleep, page-aware prompts, and quick actions).
 - [ ] Phase 7: Owner Studio.
 - [ ] Phase 8: QA and cleanup.
 

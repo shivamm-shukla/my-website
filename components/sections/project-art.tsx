@@ -10,7 +10,7 @@ export function ProjectArt({ treatment }: { treatment: Project["treatment"] }) {
     <span className="art-caption">Illustrative interface</span>
   </div>;
 
-  if (treatment === "terminal") return <div className="terminal-art" aria-hidden="true"><div className="terminal-bridge"><span className="tool-chip"><span className="claude-symbol">✳</span>Claude Code</span><span className="bridge-line"><i /><Icon name="check" size={12} /></span><span className="tool-chip"><Icon name="code" size={16} />Codex</span></div><div className="context-file"><Icon name="file" size={16} /><span>your project context</span><span className="context-cursor" /></div></div>;
+  if (treatment === "terminal") return <div className="terminal-art" aria-hidden="true"><div className="terminal-bridge"><span className="tool-chip"><span className="claude-symbol">C</span>Claude Code</span><span className="bridge-line"><i /><Icon name="check" size={12} /></span><span className="tool-chip"><Icon name="code" size={16} />Codex</span></div><div className="context-file"><Icon name="file" size={16} /><span>your project context</span><span className="context-cursor" /></div></div>;
 
   return <div className="learning-art" aria-hidden="true"><div className="learning-sheet"><span className="learning-sheet-top">थोड़ा सीखो, रोज़ सीखो। <Icon name="sparkles" size={16} /></span><p lang="hi">हर सवाल से<br /><strong>एक कदम आगे।</strong></p><div className="learning-answer"><span>25 × 4 = <strong>100</strong></span><span className="answer-check"><Icon name="check" size={16} /></span></div></div><div className="learning-star"><Icon name="sparkles" size={34} /></div></div>;
 }

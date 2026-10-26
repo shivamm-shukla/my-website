@@ -30,16 +30,26 @@ kbd { font-size: 11px; padding: 2px 4px; border: 1px solid var(--line); border-r
 .robot-hand-wave { animation: hand-wave 8s ease-in-out infinite; }
 .robot-offscreen *, .tab-hidden *, .tab-hidden *::before, .tab-hidden *::after { animation-play-state: paused !important; }
 .assistant-launcher { --safe-bottom: env(safe-area-inset-bottom, 0px); position: fixed; right: 12px; bottom: 24px; z-index: 45; width: 76px; height: 92px; margin: 0; padding: 0; border: 0; background: transparent; visibility: visible; }
+.assistant-launcher { touch-action: none; user-select: none; -webkit-user-select: none; }
 .assistant-launcher:focus-visible { border-radius: 24px; }
 .assistant-launcher > .robot-art { width: 100%; height: 100%; transition: rotate 500ms var(--ease-out); }
 .assistant-launcher[data-state="roaming"] > .robot-art { rotate: -2deg; }
 .assistant-launcher .assistant-bubble { position: absolute; bottom: calc(100% + 4px); right: 8px; padding: 12px 16px; width: max-content; max-width: min(208px, calc(100vw - 32px)); border: 1px solid var(--line); border-radius: 18px 18px 5px 18px; background: var(--surface); color: var(--fg); font-size: 13px; text-align: left; line-height: 1.5; box-shadow: 0 8px 24px var(--material-shadow); pointer-events: none; }
+.assistant-launcher[data-pinned="true"]::after { content: ""; position: absolute; right: 12px; top: 12px; width: 10px; height: 10px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 16px var(--accent); }
+.assistant-launcher[data-pinned="true"] .assistant-bubble::after { content: attr(data-tip); }
+.assistant-launcher[data-sleeping="true"]::before { content: "z z"; position: absolute; right: 0; top: 0; color: var(--muted); font-size: 15px; font-weight: 700; letter-spacing: 2px; }
+.assistant-launcher[data-sleeping="true"] .robot-blink { transform: scaleY(.08); }
+.assistant-launcher[data-sleeping="true"] .robot-float, .assistant-launcher[data-sleeping="true"] .robot-shadow { animation-play-state: paused; }
 .assistant-launcher[data-edge="left"] .assistant-bubble { left: 8px; right: auto; border-radius: 18px 18px 18px 5px; }
 .assistant-dialog { inset: auto 24px max(24px, env(safe-area-inset-bottom)) auto; margin: 0; width: min(420px, calc(100% - 32px)); max-height: calc(100dvh - 48px); }
 .assistant-intro { display: flex; gap: 20px; align-items: center; padding: 0 0 20px; border-bottom: 1px solid var(--line); }
 .assistant-intro > .robot-art { width: 76px; flex-shrink: 0; }
 .assistant-intro p { font-size: 18px; font-weight: 500; letter-spacing: -.4px; }
 .assistant-intro span { display: block; color: var(--muted); font-size: 14px; margin-top: 6px; line-height: 1.6; }
+.assistant-pin-toggle { margin-top: 8px; min-height: 36px; padding: 5px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--material-well); color: var(--fg); font-size: 12px; }
+.assistant-quick-actions { display: flex; gap: 8px; overflow-x: auto; margin-top: 16px; padding: 2px 1px 6px; scrollbar-width: thin; }
+.assistant-quick-actions button { flex: 0 0 auto; min-height: 44px; padding: 9px 13px; border: 1px solid var(--line); border-radius: 999px; background: var(--material-well); color: var(--fg); font-size: 12px; }
+.assistant-quick-actions button:hover { border-color: var(--accent); }
 .assistant-form { margin-top: 20px; }
 .assistant-form label { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; }
 .assistant-form > div { display: flex; align-items: center; gap: 8px; padding: 6px 6px 6px 14px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
