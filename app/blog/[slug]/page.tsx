@@ -43,7 +43,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
     </div>
     {article.links && article.links.length > 0 && <section className="site-container article-resource-links"><h2>Links from this post</h2><div>{article.links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<Icon name="arrow-up-right" size={16}/></a>)}</div></section>}
     <section className="site-container article-editorial-extras"><WriterCard name={content.profile.name} description={content.profile.description} initials={content.profile.initials}/></section>
-    <div className="site-container"><SharePreviewCard item={{ kind: "blog", title: article.title, description: article.excerpt, category: article.tags?.[0] || article.tag || "Journal", meta: `${article.readingTime} min read · ${content.profile.name}`, cta: "Read the article", path: `/blog/${article.slug}`, url: articleUrl }}/></div>
+    <div className="site-container"><SharePreviewCard template={content.shareTemplate} item={{ kind: "blog", title: article.title, description: article.excerpt, category: article.tags?.[0] || article.tag || "Journal", meta: `${article.readingTime} min read · ${content.profile.name}`, cta: "Read the article", path: `/blog/${article.slug}`, url: articleUrl }}/></div>
     <EditorialPromotions settings={content.promotions} context="article"/>
     <div className="site-container"><ArticleAudience slug={slug} comments={comments}/></div>
     {(content.promotions.newsletter.enabled || content.promotions.thought.enabled) && <section className="site-container article-reader-promos">

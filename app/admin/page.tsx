@@ -11,12 +11,14 @@ export default async function AdminPage() {
   if (!hasSupabaseAdminConfig) return <main id="main-content" className="admin-setup"><span className="page-kicker">Owner studio</span><h1>Connect Supabase to open the studio.</h1><p>Add the Supabase URL, anon key, service role key, and OWNER_EMAIL to the environment. Then apply the migrations in <code>supabase/migrations/</code>.</p></main>;
   const owner = await getOwner(); if (!owner) redirect("/admin/login");
   const client = createSupabaseAdminClient(); if (!client) throw new Error("Supabase admin configuration missing.");
-  const [posts, blogs, projects, messages] = await Promise.all([
+  const [posts, blogs, projects, messages, subscribers, comments] = await Promise.all([
     client.from("posts").select("*").order("created_at", { ascending: false }),
     client.from("blogs").select("*").order("updated_at", { ascending: false }),
     client.from("projects").select("*").order("order", { ascending: true }),
     client.from("messages").select("*").order("created_at", { ascending: false }),
+    client.from("subscribers").select("*").order("consented_at", { ascending: false }),
+    client.from("comments").select("*").order("created_at", { ascending: false }),
   ]);
   const siteContent = await getSiteContent();
-  return <AdminStudio email={owner.email || "Owner"} posts={posts.data || []} blogs={blogs.data || []} projects={projects.data || []} messages={messages.data || []} promotions={siteContent.promotions} profile={siteContent.profile} home={siteContent.home} />;
+  return <AdminStudio email={owner.email || "Owner"} posts={posts.data || []} blogs={blogs.data || []} projects={projects.data || []} messages={messages.data || []} subscribers={subscribers.data || []} comments={comments.data || []} promotions={siteContent.promotions} content={siteContent} />;
 }

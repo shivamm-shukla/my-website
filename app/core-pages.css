@@ -16,7 +16,8 @@
 /* About */
 .about-hero { display: grid; grid-template-columns: 1.35fr .65fr; align-items: center; gap: clamp(36px, 7vw, 104px); }
 .about-intro p + p { margin-top: 16px; }
-.portrait-placeholder { aspect-ratio: 4 / 5; border-radius: 999px 999px 32px 32px; background: var(--blue-soft); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; text-align: center; padding: 28px; transform: rotate(2deg); }
+.portrait-placeholder { position: relative; aspect-ratio: 4 / 5; border-radius: 999px 999px 32px 32px; background: var(--blue-soft); border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; text-align: center; padding: 28px; transform: rotate(2deg); }
+.portrait-placeholder > img { object-fit: cover; }
 .portrait-initials { display: grid; place-items: center; width: 128px; aspect-ratio: 1; border-radius: 50%; background: var(--surface); color: var(--blue-ink); font-size: 44px; font-weight: 600; letter-spacing: -.08em; box-shadow: 0 20px 50px var(--material-shadow); }
 .portrait-placeholder div { margin-top: 28px; }
 .portrait-placeholder strong, .portrait-placeholder small { display: block; }
@@ -38,7 +39,7 @@
 .about-capabilities article:nth-child(3) { margin-top: 72px; background: var(--peach-soft); color: var(--peach-ink); }
 .about-capabilities h3 { margin-top: 90px; font-size: 25px; letter-spacing: -.03em; }
 .about-capabilities p { margin-top: 12px; line-height: 1.7; }
-.recognition-section { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-bottom: var(--section-space); border-block: 1px solid var(--line); }
+.recognition-section { display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); gap: 0; margin-bottom: var(--section-space); border-block: 1px solid var(--line); }
 .recognition-section > div { display: flex; align-items: center; gap: 16px; min-height: 126px; padding: 24px; }
 .recognition-section > div + div { border-left: 1px solid var(--line); }
 .recognition-icon { flex: 0 0 auto; width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: var(--soft); color: var(--accent); }

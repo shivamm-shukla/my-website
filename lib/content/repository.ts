@@ -62,6 +62,13 @@ export async function getSiteContent(): Promise<SiteContent> {
   let promotions = siteContent.promotions;
   let profile = siteContent.profile;
   let home = siteContent.home;
+  let pages = siteContent.pages;
+  let socials = siteContent.socials;
+  let sections = siteContent.sections;
+  let navigation = siteContent.navigation;
+  let footerNavigation = siteContent.footerNavigation;
+  let assistantEnabled = siteContent.assistantEnabled;
+  let shareTemplate = siteContent.shareTemplate;
   if (!isPreview) {
     projects = [];
     const client = createSupabasePublicClient();
@@ -81,6 +88,20 @@ export async function getSiteContent(): Promise<SiteContent> {
         };
       }
       if (value?.profile) profile = { ...profile, ...value.profile };
+      if (value?.socials) socials = value.socials;
+      if (value?.sections) sections = value.sections;
+      if (value?.navigation) navigation = value.navigation;
+      if (value?.footerNavigation) footerNavigation = value.footerNavigation;
+      if (typeof value?.assistantEnabled === "boolean") assistantEnabled = value.assistantEnabled;
+      if (["aurora", "sunrise", "ocean", "paper"].includes(String(value?.shareTemplate))) shareTemplate = value?.shareTemplate as SiteContent["shareTemplate"];
+      if (value?.pages) {
+        pages = {
+          ...pages, ...value.pages,
+          about: { ...pages.about, ...value.pages.about }, hire: { ...pages.hire, ...value.pages.hire },
+          contact: { ...pages.contact, ...value.pages.contact }, resume: { ...pages.resume, ...value.pages.resume },
+          footer: { ...pages.footer, ...value.pages.footer },
+        };
+      }
       if (value?.home) {
         home = {
           ...home, ...value.home,
@@ -98,6 +119,13 @@ export async function getSiteContent(): Promise<SiteContent> {
     promotions,
     profile,
     home,
+    pages,
+    socials,
+    sections,
+    navigation,
+    footerNavigation,
+    assistantEnabled,
+    shareTemplate,
     posts: await getPublishedPosts(),
     articles: await getPublishedBlogs(),
   };

@@ -31,7 +31,7 @@ body:has(.admin-page, .admin-login-page, .admin-setup) .assistant-launcher { dis
 .admin-welcome { padding: clamp(36px, 5vw, 64px); border-radius: 32px; background: var(--surface); }
 .admin-welcome h1 { margin-top: 18px; font-size: clamp(44px, 6vw, 76px); line-height: .98; letter-spacing: -.065em; }
 .admin-welcome > p { max-width: 620px; margin-top: 20px; color: var(--muted); font-size: 17px; }
-.admin-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 44px; }
+.admin-stats { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 12px; margin-top: 44px; }
 .admin-stats > div { padding: 20px; border-radius: 18px; background: var(--soft); }
 .admin-stats strong, .admin-stats span { display: block; }
 .admin-stats strong { font-size: 30px; line-height: 1; }
@@ -55,6 +55,18 @@ body:has(.admin-page, .admin-login-page, .admin-setup) .assistant-launcher { dis
 .admin-form > .button { justify-self: start; }
 .admin-delete { margin: 0 24px 24px; padding: 8px 12px; border: 0; background: transparent; color: var(--mac-red); font-size: 12px; }
 .markdown-editor { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.markdown-editor { grid-column: 1 / -1; display: block; min-width: 0; }
+.markdown-editor-toolbar, .markdown-editor-modes { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.markdown-editor-toolbar button, .markdown-editor-modes button { min-height: 36px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--fg); font-size: 11px; }
+.markdown-editor-modes button[aria-selected="true"] { border-color: var(--accent); color: var(--accent); }
+.markdown-editor-status { display: flex; flex-wrap: wrap; gap: 10px 18px; margin: 8px 0 12px; color: var(--muted); font-size: 11px; }
+.markdown-editor-panes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.markdown-editor-write .markdown-editor-panes, .markdown-editor-preview .markdown-editor-panes { grid-template-columns: minmax(0,1fr); }
+.markdown-image-input { display: none !important; }
+.markdown-editor-panes > div { min-width: 0; }
+.markdown-editor-panes label, .markdown-editor-panes > div > span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; }
+.markdown-editor-panes textarea, .markdown-editor-panes iframe { width: 100%; height: 430px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.markdown-editor-panes textarea { padding: 15px; color: var(--fg); font: 13px/1.6 ui-monospace, monospace; }
 .markdown-editor > div { min-width: 0; }
 .markdown-editor label, .markdown-editor > div > span { display: block; margin-bottom: 7px; color: var(--muted); font-size: 11px; }
 .markdown-editor textarea, .markdown-editor iframe { width: 100%; height: 430px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
@@ -69,8 +81,38 @@ body:has(.admin-page, .admin-login-page, .admin-setup) .assistant-launcher { dis
 .editorial-settings-form fieldset, .site-copy-form fieldset { grid-column: 1 / -1; min-width: 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; margin: 0; padding: 20px; border: 1px solid var(--line); border-radius: 16px; }
 .editorial-settings-form legend, .site-copy-form legend { padding-inline: 8px; font-size: 14px; font-weight: 650; }
 .editorial-settings-form fieldset .wide, .site-copy-form fieldset .wide { grid-column: 1 / -1; }
+.site-settings-editor, .home-sections-editor { grid-column: 1 / -1; min-width: 0; }
+.timeline-admin-editor { grid-column: 1 / -1; display: grid; gap: 12px; }
+.timeline-admin-editor fieldset { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; min-width: 0; margin: 0; padding: 14px; border: 1px solid var(--line); border-radius: 12px; }
+.timeline-admin-editor legend { padding-inline: 8px; font-size: 12px; font-weight: 600; }
+.timeline-admin-editor .wide { grid-column: 1 / -1; }
+.admin-editor-add { justify-self: start; min-height: 40px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--fg); }
+.admin-link-rows { display: grid; gap: 10px; }
+.admin-link-row { display: grid; grid-template-columns: minmax(100px,.7fr) minmax(130px,.8fr) minmax(180px,1.5fr) auto; align-items: end; gap: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); }
+.admin-link-actions, .admin-quick-add, .home-section-row > div { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.admin-link-actions button, .admin-quick-add button, .home-section-row button { min-height: 36px; padding: 7px 10px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); color: var(--fg); font-size: 11px; }
+.admin-link-actions button:disabled, .home-section-row button:disabled { opacity: .45; }
+.admin-quick-add { margin-top: 12px; }
+.admin-quick-add > span { margin-right: 4px; color: var(--muted); font-size: 11px; }
+.home-section-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.home-section-row label { display: flex; flex-direction: row; align-items: center; gap: 9px; color: var(--fg); font-size: 13px; }
+.home-section-row input { width: 18px; height: 18px; }
+.admin-audience-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 18px; }
+.admin-audience-grid > section { min-width: 0; display: grid; align-content: start; gap: 10px; }
+.admin-audience-grid > section > header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 2px; }
+.admin-audience-grid h3 { font-size: 18px; }
+.admin-audience-grid header span, .admin-audience-grid header a { color: var(--muted); font-size: 12px; }
+.admin-audience-item { display: grid; gap: 10px; padding: 16px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+.admin-audience-item > div:first-child { display: grid; gap: 4px; }
+.admin-audience-item > div:first-child span { color: var(--muted); font-size: 11px; overflow-wrap: anywhere; }
+.admin-audience-item > p { white-space: pre-wrap; line-height: 1.6; font-size: 13px; }
+.admin-audience-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.admin-audience-actions form { display: inline-flex; }
+.admin-action-button { min-height: 38px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--bg); color: var(--fg); font-size: 11px; }
+.admin-subscriber-row { grid-template-columns: minmax(0,1fr) auto; align-items: center; }
 
 @media (max-width: 900px) {
+  .admin-stats { grid-template-columns: repeat(3,minmax(0,1fr)); }
   .admin-shell { grid-template-columns: 1fr; }
   .admin-sidebar { position: sticky; z-index: 10; top: 68px; height: auto; overflow-x: auto; flex-direction: row; padding: 9px 16px; border-right: 0; border-bottom: 1px solid var(--line); background: var(--glass); backdrop-filter: blur(18px); }
   .admin-sidebar a { flex: 0 0 auto; }
@@ -83,11 +125,15 @@ body:has(.admin-page, .admin-login-page, .admin-setup) .assistant-launcher { dis
   .admin-topbar > div:last-child > span { display: none; }
   .admin-welcome { padding: 30px 24px; }
   .admin-stats { grid-template-columns: repeat(2, 1fr); }
+  .admin-audience-grid { grid-template-columns: 1fr; }
+  .admin-link-row { grid-template-columns: 1fr; }
   .admin-section-title { grid-template-columns: 1fr; gap: 8px; }
   .admin-form { grid-template-columns: 1fr; padding: 18px; }
   .admin-form .wide { grid-column: auto; }
   .editorial-settings-form fieldset, .site-copy-form fieldset { grid-template-columns: 1fr; padding: 16px; }
   .editorial-settings-form fieldset .wide, .site-copy-form fieldset .wide { grid-column: auto; }
-  .markdown-editor { grid-template-columns: 1fr; }
-  .markdown-editor textarea, .markdown-editor iframe { height: 330px; }
+  .timeline-admin-editor fieldset { grid-template-columns: 1fr; }
+  .timeline-admin-editor .wide { grid-column: auto; }
+  .markdown-editor-panes { grid-template-columns: 1fr; }
+  .markdown-editor-panes textarea, .markdown-editor-panes iframe { height: 330px; }
 }

@@ -18,10 +18,10 @@ function slugFileName(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48) || "shivam-shukla";
 }
 
-export function ShareDesigner() {
+export function ShareDesigner({ defaultTemplate = "aurora" }: { defaultTemplate?: ShareTemplate }) {
   const [item, setItem] = useState<ShareRequest | null>(null);
   const [format, setFormat] = useState<ShareFormat>("story");
-  const [template, setTemplate] = useState<ShareTemplate>("aurora");
+  const [template, setTemplate] = useState<ShareTemplate>(defaultTemplate);
   const [safeArea, setSafeArea] = useState(true);
   const [message, setMessage] = useState("");
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -33,13 +33,13 @@ export function ShareDesigner() {
       if (!detail || typeof detail.title !== "string") return;
       setItem({ ...detail, author: detail.author || "Shivam Shukla", site: detail.site || "shivamshukla.site" });
       setFormat("story");
-      setTemplate("aurora");
+      setTemplate(defaultTemplate);
       setSafeArea(true);
       setMessage("");
     };
     window.addEventListener("share:open", onOpen);
     return () => window.removeEventListener("share:open", onOpen);
-  }, []);
+  }, [defaultTemplate]);
 
   useEffect(() => {
     if (!item) return;
@@ -118,7 +118,7 @@ export function ShareButton({ item, className = "button button-secondary" }: { i
   return <button type="button" className={className} onClick={() => window.dispatchEvent(new CustomEvent("share:open", { detail: item }))}><Icon name="share" size={17}/>Share to story</button>;
 }
 
-export function SharePreviewCard({ item }: { item: ShareRequest }) {
+export function SharePreviewCard({ item, template = "aurora" }: { item: ShareRequest; template?: ShareTemplate }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -126,7 +126,7 @@ export function SharePreviewCard({ item }: { item: ShareRequest }) {
     if (!canvas || !context) return;
     canvas.width = SHARE_FORMATS.link.width;
     canvas.height = SHARE_FORMATS.link.height;
-    drawShareCard(context, item, "link", "aurora");
-  }, [item]);
+    drawShareCard(context, item, "link", template);
+  }, [item, template]);
   return <section className="share-preview-card"><div><span className="page-kicker">Share preview</span><h2>Ready to pass along.</h2><p>See how this looks when someone shares the link.</p><ShareButton item={item}/></div><canvas ref={canvasRef} aria-label={`Link preview image for ${item.title}`}/></section>;
 }

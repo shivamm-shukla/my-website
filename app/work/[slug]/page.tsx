@@ -38,7 +38,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       {processContent.length > 0 && <section className="project-detail-section"><h2>How to use it</h2><ol className="project-step-list">{processContent.map((step, index) => <li key={`${index}-${step.title}`}><b>{index + 1}</b><div><h3>{step.title}</h3>{step.body && <p>{step.body}</p>}</div></li>)}</ol></section>}
       {project.outcome && <section className="project-detail-section"><h2>Where it stands</h2><p>{project.outcome}</p></section>}
       {links.length > 0 && <section className="project-detail-section"><h2>Links</h2><div className="project-link-list">{links.map((link) => <a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label}<Icon name="arrow-up-right" size={16}/></a>)}</div></section>}
-      <SharePreviewCard item={{ kind: "project", title: project.title, description: project.summary, category: project.category, meta: `A project by ${content.profile.name}`, cta: "Explore the project", path: `/work/${project.slug}`, url: `${siteUrl}/work/${project.slug}` }}/>
+      <SharePreviewCard template={content.shareTemplate} item={{ kind: "project", title: project.title, description: project.summary, category: project.category, meta: `A project by ${content.profile.name}`, cta: "Explore the project", path: `/work/${project.slug}`, url: `${siteUrl}/work/${project.slug}` }}/>
     </article>
     <EditorialPromotions settings={content.promotions} context="project"/>
     {(content.promotions.newsletter.enabled || content.promotions.thought.enabled) && <section className="site-container project-reader-promos">

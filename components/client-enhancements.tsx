@@ -6,21 +6,21 @@ import { ShareDesigner } from "@/components/sections/share-designer";
 
 const AssistantWidget = dynamic(() => import("@/components/robot/assistant-widget"), { ssr: false });
 
-export function ClientEnhancements() {
+export function ClientEnhancements({ assistantEnabled = true, shareTemplate = "aurora" }: { assistantEnabled?: boolean; shareTemplate?: "aurora" | "sunrise" | "ocean" | "paper" }) {
   const [ready, setReady] = useState(false);
   const [initiallyOpen, setInitiallyOpen] = useState(false);
   useEffect(() => {
-    if (ready) return;
+    if (!assistantEnabled || ready) return;
     const timer = window.setTimeout(() => setReady(true), 900);
     const openEarly = () => { setInitiallyOpen(true); setReady(true); };
     window.addEventListener("site:assistant", openEarly);
     return () => { clearTimeout(timer); window.removeEventListener("site:assistant", openEarly); };
-  }, [ready]);
+  }, [ready, assistantEnabled]);
   useEffect(() => {
     const visibility = () => document.documentElement.classList.toggle("tab-hidden", document.hidden);
     visibility();
     document.addEventListener("visibilitychange", visibility);
     return () => document.removeEventListener("visibilitychange", visibility);
   }, []);
-  return <><ShareDesigner />{ready ? <AssistantWidget initiallyOpen={initiallyOpen} /> : null}</>;
+  return <><ShareDesigner defaultTemplate={shareTemplate} />{assistantEnabled && ready ? <AssistantWidget initiallyOpen={initiallyOpen} /> : null}</>;
 }
