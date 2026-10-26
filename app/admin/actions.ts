@@ -5,6 +5,18 @@ import { createSupabaseAdminClient, requireOwner } from "@/lib/supabase/server";
 import type { HomeSection, NavigationItem, SiteContent, SocialLink, SocialPlatform, TimelineEntry } from "@/lib/content/types";
 import { siteContent } from "@/content/seed";
 
+export type AdminActionState = { error: string; success: string };
+
+async function reportAdminAction(action: () => Promise<void>): Promise<AdminActionState> {
+  try {
+    await action();
+    return { error: "", success: "Saved. Changes are live." };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Unknown database error.";
+    return { error: `Could not save: ${message}`, success: "" };
+  }
+}
+
 function value(form: FormData, key: string) { return String(form.get(key) || "").trim(); }
 function checked(form: FormData, key: string) { return form.get(key) === "on"; }
 function slug(value: string) { return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80); }
@@ -60,7 +72,7 @@ export async function savePost(form: FormData) {
   revalidatePath("/posts"); revalidatePath("/"); revalidatePath("/admin");
 }
 
-export async function saveBlog(form: FormData) {
+async function saveBlogRecord(form: FormData) {
   await requireOwner();
   const id = value(form, "id");
   const title = value(form, "title");
@@ -72,7 +84,11 @@ export async function saveBlog(form: FormData) {
   revalidatePath("/blog"); revalidatePath(`/blog/${record.slug}`); revalidatePath("/"); revalidatePath("/admin");
 }
 
-export async function saveProject(form: FormData) {
+export async function saveBlog(_previous: AdminActionState, form: FormData): Promise<AdminActionState> {
+  return reportAdminAction(() => saveBlogRecord(form));
+}
+
+async function saveProjectRecord(form: FormData) {
   await requireOwner();
   const id = value(form, "id");
   const title = value(form, "title");
@@ -83,6 +99,10 @@ export async function saveProject(form: FormData) {
   const query = id ? admin().from("projects").update(record).eq("id", id) : admin().from("projects").insert(record);
   const { error } = await query; if (error) throw error;
   revalidatePath("/work"); revalidatePath(`/work/${record.slug}`); revalidatePath("/"); revalidatePath("/admin");
+}
+
+export async function saveProject(_previous: AdminActionState, form: FormData): Promise<AdminActionState> {
+  return reportAdminAction(() => saveProjectRecord(form));
 }
 
 export async function saveEditorialSettings(form: FormData) {
@@ -125,7 +145,7 @@ export async function saveEditorialSettings(form: FormData) {
   for (const path of ["/", "/blog", "/posts", "/work", "/admin"]) revalidatePath(path);
 }
 
-export async function saveSiteCopy(form: FormData) {
+async function saveSiteCopyRecord(form: FormData) {
   await requireOwner();
   const clean = (key: string, max: number) => value(form, key).slice(0, max);
   const client = admin();
@@ -206,6 +226,10 @@ export async function saveSiteCopy(form: FormData) {
   const { error } = await client.from("site_settings").upsert({ id: "default", content, public_read: true, updated_at: new Date().toISOString() }, { onConflict: "id" });
   if (error) throw error;
   for (const path of ["/", "/about", "/blog", "/posts", "/work", "/hire-me", "/contact", "/resume", "/admin"]) revalidatePath(path);
+}
+
+export async function saveSiteCopy(_previous: AdminActionState, form: FormData): Promise<AdminActionState> {
+  return reportAdminAction(() => saveSiteCopyRecord(form));
 }
 
 export async function updateAudienceRecord(form: FormData) {

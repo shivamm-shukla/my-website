@@ -19,6 +19,16 @@ export default async function AdminPage() {
     client.from("subscribers").select("*").order("consented_at", { ascending: false }),
     client.from("comments").select("*").order("created_at", { ascending: false }),
   ]);
+  const [siteSettingsSchema, projectStorySchema, blogLinksSchema] = await Promise.all([
+    client.from("site_settings").select("id").limit(1),
+    client.from("projects").select("features_heading").limit(1),
+    client.from("blogs").select("links").limit(1),
+  ]);
+  const setupWarnings = [
+    ...(siteSettingsSchema.error ? ["Site settings could not be read. Confirm migrations 001–003 are applied and Supabase service access is working."] : []),
+    ...(projectStorySchema.error || blogLinksSchema.error ? ["Project and blog editor fields are missing. Apply the additive migration 005_project_story_fields.sql after your already-applied migrations."] : []),
+    ...(subscribers.error || comments.error ? ["Reader audience tables are unavailable. Apply migration 002_blog_interactions.sql if you want comments and subscriptions enabled."] : []),
+  ];
   const siteContent = await getSiteContent();
-  return <AdminStudio email={owner.email || "Owner"} posts={posts.data || []} blogs={blogs.data || []} projects={projects.data || []} messages={messages.data || []} subscribers={subscribers.data || []} comments={comments.data || []} promotions={siteContent.promotions} content={siteContent} />;
+  return <AdminStudio email={owner.email || "Owner"} posts={posts.data || []} blogs={blogs.data || []} projects={projects.data || []} messages={messages.data || []} subscribers={subscribers.data || []} comments={comments.data || []} promotions={siteContent.promotions} content={siteContent} setupWarnings={setupWarnings} />;
 }
