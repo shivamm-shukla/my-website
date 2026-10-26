@@ -14,6 +14,7 @@ export type Project = {
   extraLinks: Array<{ label: string; url: string }>;
   externalUrl?: string;
   externalLabel?: string;
+  updatedAt?: string;
   problem: string;
   built: string;
   outcome: string;
@@ -29,7 +30,7 @@ export type SocialPlatform = "linkedin" | "twitter" | "instagram" | "whatsapp" |
 export type SocialLink = { platform: SocialPlatform; label: string; url: string | null };
 export type TimelineEntry = { title: string; subtitle: string; description: string; icon: "book" | "graduation" | "code" | "sparkles" };
 export type SocialPost = { id: string; platform: "linkedin" | "twitter"; url?: string; embedHtml?: string; caption?: string; topic?: string; pinned?: boolean; createdAt?: string; isDemo?: true };
-export type BlogArticle = { id?: string; slug: string; title: string; excerpt?: string; coverUrl?: string; tags?: string[]; contentMd?: string; publishedAt?: string; readingTime: number; links?: Array<{ label: string; url: string }>; treatment?: "blue" | "peach" | "lilac"; tag?: string; isDemo?: true };
+export type BlogArticle = { id?: string; slug: string; title: string; excerpt?: string; coverUrl?: string; tags?: string[]; contentMd?: string; publishedAt?: string; updatedAt?: string; readingTime: number; links?: Array<{ label: string; url: string }>; treatment?: "blue" | "peach" | "lilac"; tag?: string; isDemo?: true };
 export type HomeSectionType = "hero" | "work" | "focus" | "journey" | "posts" | "writing" | "hire";
 export type HomeSection = { id: string; type: HomeSectionType; visible: boolean };
 export type EditorialPromotions = {
@@ -68,4 +69,5 @@ export type SiteContent = {
   };
   assistantEnabled: boolean;
   shareTemplate: "aurora" | "sunrise" | "ocean" | "paper";
+  updatedAt?: string;
 };

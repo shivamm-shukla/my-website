@@ -7,7 +7,8 @@ Last checked: 2026-10-26
 - `pnpm build`: passed on Next.js 16.3.5.
 - `pnpm exec tsc --noEmit --incremental false`: passed.
 - `pnpm test:unit`: 3 test groups passed.
-- `pnpm test:e2e`: 48 Playwright tests passed, including public/admin privacy, content safety, responsive layout, theme switching, navigation, assistant behavior, feed/API responses, and WCAG A/AA axe checks.
+- `pnpm test:e2e`: 49 Playwright tests passed, including public/admin privacy, content safety, responsive layout, theme switching, navigation, assistant behavior, feed/API responses, SEO mode directives, and WCAG A/AA axe checks.
+- Sitemap and robots browser checks passed in both Vercel Preview mode (empty sitemap, site-wide disallow, noindex) and Vercel Production mode (required canonical pages, absolute HTTPS URLs, `lastmod` on every entry, sitemap directive, and `/admin` blocked/noindex).
 - Home screenshots are captured for light and dark mode at 320, 360, 390, 768, 1024, 1440, 1920, and 2560 px in `docs/screenshots/`.
 
 ## Lighthouse

@@ -15,7 +15,7 @@ import "./content-pages.css";
 import "./admin.css";
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover", themeColor: [{ media: "(prefers-color-scheme: light)", color: "#e9eeff" }, { media: "(prefers-color-scheme: dark)", color: "#080819" }] };
-const blockIndexing = process.env.VERCEL_ENV === "preview" || process.env.NEXT_PUBLIC_SITE_MODE === "preview";
+const blockIndexing = isPreview;
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getSiteContent();

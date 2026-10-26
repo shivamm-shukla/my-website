@@ -13,7 +13,8 @@ Supabase free projects may pause after inactivity. The daily Vercel cron calls a
 
 1. Import this repository into Vercel with the Next.js preset.
 2. Add every variable from `.env.example` to Production and Preview environments.
-3. Set `NEXT_PUBLIC_SITE_MODE=live` only after Supabase is connected and the public content has been reviewed.
+3. Vercel Preview deployments stay non-indexable automatically. Vercel Production deployments are live and indexable; local and non-Vercel builds use `NEXT_PUBLIC_SITE_MODE` (`preview` by default, set to `live` for production).
+   Preview builds return an empty sitemap, disallow all crawlers, and emit `noindex`; production builds publish the canonical sitemap and crawl rules.
 4. Generate a long random `CRON_SECRET`. Vercel Cron sends it as a bearer token automatically.
 5. Choose `CHAT_PROVIDER` (`openai`, `anthropic`, or `gemini`), set a supported `CHAT_MODEL`, and add its server-only `CHAT_API_KEY`.
 6. Deploy, open `/admin`, sign in with the owner account, and verify that a post, draft blog, and project edit can be saved.
@@ -56,4 +57,5 @@ Vercel provisions HTTPS after DNS verification. The dashboard or `vercel domains
 - Publish one post and one blog, then check `/posts`, `/blog`, `/rss.xml`, and `/sitemap.xml`.
 - Ask the robot a question in English, Hindi, and Hinglish; confirm unknown facts are declined.
 - Run `pnpm build`, `pnpm test:unit`, and `pnpm test:e2e`.
+- In production live mode, confirm `/sitemap.xml` contains the public pages plus every published project and article, each with an absolute `https://shivamshukla.site` URL and `<lastmod>`. Confirm `/robots.txt` includes `Sitemap: https://shivamshukla.site/sitemap.xml`, allows `/`, and disallows `/admin`; confirm the homepage has no `noindex` directive and `/admin` does.
 - Add the domain to Google Search Console and Bing Webmaster Tools, then submit `https://shivamshukla.site/sitemap.xml`.

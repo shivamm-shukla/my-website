@@ -2,8 +2,15 @@ import { siteContent } from "@/content/seed";
 import type { BlogArticle, Project, SiteContent, SocialPost } from "./types";
 import { createSupabasePublicClient } from "@/lib/supabase/public";
 
-export const isPreview = process.env.NEXT_PUBLIC_SITE_MODE !== "live";
-export const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://shivamshukla.site";
+// Vercel's deployment environment is authoritative: Preview deployments must
+// stay private, while the Production domain must remain indexable. Local and
+// non-Vercel builds use NEXT_PUBLIC_SITE_MODE as the explicit switch.
+export const isPreview = process.env.VERCEL_ENV === "preview"
+  || (process.env.VERCEL_ENV !== "production" && process.env.NEXT_PUBLIC_SITE_MODE !== "live");
+const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://shivamshukla.site";
+export const siteUrl = isPreview
+  ? new URL(configuredSiteUrl).origin
+  : "https://shivamshukla.site";
 
 function mapProject(row: Record<string, unknown>): Project {
   const links = (row.links || {}) as Record<string, string>;
@@ -12,7 +19,7 @@ function mapProject(row: Record<string, unknown>): Project {
     category: row.category as Project["category"], headline: String(row.headline || row.title), status: String(row.status || "Published"),
     treatment: (row.treatment || "care") as Project["treatment"], coverUrl: row.cover_url ? String(row.cover_url) : undefined, externalUrl: links.primary, externalLabel: links.label, sourceUrl: links.source,
     problem: String(row.problem || ""), built: String(row.built || ""), outcome: String(row.result || ""), tech: Array.isArray(row.tech) ? row.tech.map(String) : [],
-    features: Array.isArray(row.features) ? row.features.map(String) : [], featuresHeading: String(row.features_heading || ""), processSteps: Array.isArray(row.process_steps) ? row.process_steps.map(String) : [],
+    features: Array.isArray(row.features) ? row.features.map(String) : [], featuresHeading: String(row.features_heading || ""), processSteps: Array.isArray(row.process_steps) ? row.process_steps.map(String) : [], updatedAt: row.updated_at ? String(row.updated_at) : undefined,
     extraLinks: Array.isArray(links.extra) ? (links.extra as unknown as Array<Record<string, unknown>>).filter((link) => typeof link.label === "string" && typeof link.url === "string").map((link) => ({ label: String(link.label), url: String(link.url) })) : [], published: true,
   };
 }
@@ -23,7 +30,7 @@ function mapPost(row: Record<string, unknown>): SocialPost {
 
 function mapBlog(row: Record<string, unknown>): BlogArticle {
   const links = Array.isArray(row.links) ? row.links as Array<Record<string, unknown>> : [];
-  return { id: String(row.id), slug: String(row.slug), title: String(row.title), excerpt: String(row.excerpt || ""), coverUrl: row.cover_url ? String(row.cover_url) : undefined, tags: Array.isArray(row.tags) ? row.tags.map(String) : [], contentMd: String(row.content_md || ""), publishedAt: String(row.published_at || ""), readingTime: Number(row.reading_time || 1), links: links.filter((link) => typeof link.label === "string" && typeof link.url === "string").map((link) => ({ label: String(link.label), url: String(link.url) })) };
+  return { id: String(row.id), slug: String(row.slug), title: String(row.title), excerpt: String(row.excerpt || ""), coverUrl: row.cover_url ? String(row.cover_url) : undefined, tags: Array.isArray(row.tags) ? row.tags.map(String) : [], contentMd: String(row.content_md || ""), publishedAt: String(row.published_at || ""), updatedAt: String(row.updated_at || row.published_at || ""), readingTime: Number(row.reading_time || 1), links: links.filter((link) => typeof link.label === "string" && typeof link.url === "string").map((link) => ({ label: String(link.label), url: String(link.url) })) };
 }
 
 export async function getPublishedPosts(): Promise<SocialPost[]> {
@@ -69,13 +76,15 @@ export async function getSiteContent(): Promise<SiteContent> {
   let footerNavigation = siteContent.footerNavigation;
   let assistantEnabled = siteContent.assistantEnabled;
   let shareTemplate = siteContent.shareTemplate;
+  let updatedAt: string | undefined;
   if (!isPreview) {
     projects = [];
     const client = createSupabasePublicClient();
     if (client) {
       const { data } = await client.from("projects").select("*").eq("published", true).order("order", { ascending: true });
       if (data) projects = data.map(mapProject);
-      const settings = await client.from("site_settings").select("content").eq("id", "default").maybeSingle();
+      const settings = await client.from("site_settings").select("content,updated_at").eq("id", "default").maybeSingle();
+      if (settings.data?.updated_at) updatedAt = String(settings.data.updated_at);
       const value = settings.data?.content as Partial<SiteContent> | undefined;
       if (value?.promotions) {
         const stored = value.promotions;
@@ -126,6 +135,7 @@ export async function getSiteContent(): Promise<SiteContent> {
     footerNavigation,
     assistantEnabled,
     shareTemplate,
+    updatedAt,
     posts: await getPublishedPosts(),
     articles: await getPublishedBlogs(),
   };
