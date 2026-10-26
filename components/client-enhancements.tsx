@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+import { ShareDesigner } from "@/components/sections/share-designer";
 
 const AssistantWidget = dynamic(() => import("@/components/robot/assistant-widget"), { ssr: false });
 
@@ -21,5 +22,5 @@ export function ClientEnhancements() {
     document.addEventListener("visibilitychange", visibility);
     return () => document.removeEventListener("visibilitychange", visibility);
   }, []);
-  return ready ? <AssistantWidget initiallyOpen={initiallyOpen} /> : null;
+  return <><ShareDesigner />{ready ? <AssistantWidget initiallyOpen={initiallyOpen} /> : null}</>;
 }

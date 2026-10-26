@@ -138,3 +138,46 @@ p { text-wrap: pretty; }
   .brand-name { font-size: 11px; }
   :root { --gutter: 16px; }
 }
+
+/* Share card designer */
+.share-designer-dialog { width: min(1050px, calc(100vw - 32px)); max-height: min(92dvh, 980px); }
+.share-designer-dialog .dialog-surface { max-height: min(92dvh, 980px); overflow: auto; }
+.share-designer { display: grid; gap: 20px; }
+.share-format-tabs { display: flex; gap: 8px; border-bottom: 1px solid var(--line); padding-bottom: 12px; }
+.share-format-tabs button { display: grid; gap: 3px; min-height: 48px; padding: 8px 15px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--fg); text-align: left; cursor: pointer; }
+.share-format-tabs button[aria-selected="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 18%, transparent); }
+.share-format-tabs button span { color: var(--muted); font-size: 11px; }
+.share-preview-area { display: grid; justify-items: center; gap: 14px; }
+.share-canvas-wrap { position: relative; width: min(100%, 420px); max-height: 54dvh; display: grid; place-items: center; overflow: hidden; border-radius: 18px; background: var(--line); }
+.share-preview-link .share-canvas-wrap { width: min(100%, 740px); }
+.share-preview-post .share-canvas-wrap { width: min(100%, 480px); }
+.share-canvas-wrap canvas, .share-preview-card canvas { display: block; width: 100%; height: auto; }
+.share-preview-story .share-canvas-wrap canvas { max-height: 54dvh; width: auto; max-width: 100%; }
+.share-safe-band { position: absolute; left: 0; right: 0; height: 12%; border-block: 1px dashed rgba(255,255,255,.75); background: repeating-linear-gradient(135deg,rgba(255,255,255,.17) 0 8px,transparent 8px 16px); pointer-events: none; }
+.share-safe-top { top: 0; }
+.share-safe-bottom { bottom: 0; }
+.share-platform-mocks { display: grid; width: 100%; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
+.share-platform-mocks article { display: grid; gap: 5px; min-width: 0; padding: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.share-platform-mocks span, .share-platform-mocks small { color: var(--muted); font-size: 11px; }
+.share-platform-mocks strong { overflow-wrap: anywhere; font-size: 13px; }
+.share-designer-options { display: flex; align-items: end; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+.share-designer-options fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.share-designer-options legend { margin-bottom: 8px; font-size: 13px; font-weight: 650; }
+.share-template-swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.share-template-swatches button { min-height: 42px; padding: 3px; border: 2px solid transparent; border-radius: 12px; color: white; cursor: pointer; }
+.share-template-swatches button[aria-pressed="true"] { border-color: var(--accent); }
+.share-template-swatches span { display: inline-block; padding: 6px 10px; border-radius: 8px; background: rgba(0,0,0,.25); font-size: 12px; }
+.share-safe-toggle { display: flex; align-items: center; gap: 8px; min-height: 44px; font-size: 13px; }
+.share-designer-actions { display: flex; flex-wrap: wrap; gap: 9px; }
+.share-designer-note { min-height: 1.4em; margin: 0; color: var(--muted); font-size: 13px; }
+.share-preview-card { display: grid; grid-template-columns: .7fr 1.3fr; align-items: center; gap: clamp(20px,5vw,56px); margin-block: 44px; padding: clamp(20px,4vw,38px); border: 1px solid var(--line); border-radius: 28px; background: var(--surface); }
+.share-preview-card h2 { margin: 8px 0; font-size: clamp(24px,3vw,38px); }
+.share-preview-card p { margin: 0 0 18px; color: var(--muted); }
+.share-preview-card canvas { overflow: hidden; border-radius: 12px; box-shadow: 0 16px 44px rgba(0,0,0,.16); }
+.case-title .button { margin-top: 15px; }
+@media (max-width: 700px) {
+  .share-designer-dialog { width: calc(100vw - 16px); max-width: none; max-height: calc(100dvh - 16px); margin: auto 8px 8px; }
+  .share-designer-dialog .dialog-surface { max-height: calc(100dvh - 16px); }
+  .share-preview-card { grid-template-columns: 1fr; }
+  .share-platform-mocks { grid-template-columns: 1fr; }
+}

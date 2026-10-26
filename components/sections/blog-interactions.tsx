@@ -142,7 +142,7 @@ export function ArticleToolbar({ slug, title, content }: { slug: string; title: 
     try { localStorage.setItem("shivam-reading-serif", next ? "yes" : "no"); } catch { /* Use the preference for this visit. */ }
   };
   return <div className="article-toolbar" aria-label="Article controls">
-    <button type="button" className="article-tool-share" onClick={() => window.dispatchEvent(new CustomEvent("share:open", { detail: { type: "blog", slug, title } }))}><Icon name="share" size={17}/>Share to story</button>
+    <button type="button" className="article-tool-share" onClick={() => window.dispatchEvent(new CustomEvent("share:open", { detail: { kind: "blog", title, description: document.querySelector(".article-header-copy > p")?.textContent || "A note from Shivam Shukla.", category: document.querySelector(".article-header-copy .blog-card-meta > span")?.textContent || "Journal", meta: "Shivam Shukla · Article", cta: "Read the article", path: `/blog/${slug}`, url: window.location.href } }))}><Icon name="share" size={17}/>Share to story</button>
     <button type="button" aria-pressed={appreciated} onClick={toggleAppreciated}><Icon name="heart" size={17}/> {appreciated ? "Appreciated" : "Appreciate"}</button>
     <button type="button" aria-pressed={saved} onClick={setSavedValue}><Icon name="bookmark" size={17}/> {saved ? "Saved" : "Save"}</button>
     {canSpeak && <button type="button" aria-pressed={speaking} onClick={toggleSpeak}><Icon name="volume" size={17}/>{speaking ? "Stop" : "Listen"}</button>}

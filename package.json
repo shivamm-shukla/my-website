@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit",
     "preview:export": "node scripts/export-preview.cjs",
     "review:screenshots": "node scripts/capture-review.cjs",
-    "test:unit": "node --test tests/robot-motion.test.mjs tests/theme.test.mjs",
+    "test:unit": "node --test tests/robot-motion.test.mjs tests/theme.test.mjs tests/share-card.test.mjs",
     "test:e2e": "node node_modules/playwright/cli.js test"
   },
   "dependencies": {

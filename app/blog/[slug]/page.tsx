@@ -7,6 +7,7 @@ import { renderMarkdown } from "@/lib/markdown";
 import { EditorialArt } from "@/components/sections/editorial-art";
 import { ArticleAudience, ArticleBody, ArticleProgress, ArticleToolbar } from "@/components/sections/blog-interactions";
 import { Icon } from "@/components/ui/icon";
+import { SharePreviewCard } from "@/components/sections/share-designer";
 
 export async function generateStaticParams() { return (await getPublishedBlogs()).map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -34,6 +35,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <div className="article-cover">{article.coverUrl ? <Image src={article.coverUrl} alt="" fill priority unoptimized sizes="(max-width: 760px) 94vw, 1100px"/> : <EditorialArt treatment={article.treatment || "blue"}/>}</div>
     </header>
     <div className="site-container"><ArticleToolbar slug={article.slug} title={article.title} content={article.contentMd || ""}/></div>
+    <div className="site-container"><SharePreviewCard item={{ kind: "blog", title: article.title, description: article.excerpt, category: article.tags?.[0] || article.tag || "Journal", meta: `${article.readingTime} min read · Shivam Shukla`, cta: "Read the article", path: `/blog/${article.slug}`, url: articleUrl }}/></div>
     <div className="article-layout site-container">
       {headings.length >= 3 && <aside className="article-toc"><details open><summary>On this page</summary>{headings.map((heading) => <a key={heading.id} href={`#${heading.id}`} className={heading.level === 3 ? "toc-sub" : ""}>{heading.text}</a>)}</details></aside>}
       <ArticleBody html={html} url={articleUrl} title={article.title}/>

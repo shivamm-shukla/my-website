@@ -41,7 +41,7 @@
 - [x] Phase 2: Home and hero scene.
 - [x] Phase 3: content pages.
 - [x] Phase 4: Blog.
-- [ ] Phase 5: share system.
+- [x] Phase 5: share system (story, square, and link formats; article and project share entry points; OG robot mark).
 - [ ] Phase 6: site bot.
 - [ ] Phase 7: Owner Studio.
 - [ ] Phase 8: QA and cleanup.
@@ -52,3 +52,4 @@
 - Confirm the `brg-cli` GitHub repository belongs to Shivam.
 - Supply real email and social URLs where absent.
 - Supply approved profile and project screenshots where the demo currently implies them.
+- Apply `supabase/migrations/002_blog_interactions.sql` in Supabase before enabling durable comments and subscriptions; local builds fall back safely while the migration is absent.
