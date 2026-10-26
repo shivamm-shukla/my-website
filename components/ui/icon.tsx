@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 
-export type IconName = "arrow-up-right" | "arrow-right" | "arrow-up" | "arrow-left" | "chevron" | "sun" | "moon" | "menu" | "close" | "command" | "search" | "sparkles" | "code" | "heart" | "book" | "graduation" | "check" | "send" | "message" | "file" | "folder" | "globe" | "lock" | "mail";
+export type IconName = "arrow-up-right" | "arrow-right" | "arrow-up" | "arrow-left" | "chevron" | "sun" | "moon" | "menu" | "close" | "command" | "search" | "sparkles" | "code" | "heart" | "book" | "graduation" | "check" | "send" | "message" | "file" | "folder" | "globe" | "lock" | "mail" | "bookmark" | "share" | "volume" | "link";
 
 const paths: Record<IconName, React.ReactNode> = {
   "arrow-up-right": <><path d="M6 18 18 6M6 6h12v12" /></>,
@@ -27,6 +27,10 @@ const paths: Record<IconName, React.ReactNode> = {
   globe: <><circle cx="12" cy="12" r="10" /><ellipse cx="12" cy="12" rx="4" ry="10" /><path d="M2 12h20" /></>,
   lock: <><rect x="5" y="10" width="14" height="12" rx="3" /><path d="M8 10V6a4 4 0 0 1 8 0v4m-4 5v2" /></>,
   mail: <><rect x="2" y="4" width="20" height="16" rx="3" /><path d="m3 6 9 7 9-7" /></>,
+  bookmark: <path d="M6 4.75A1.75 1.75 0 0 1 7.75 3h8.5A1.75 1.75 0 0 1 18 4.75V21l-6-4-6 4V4.75Z" />,
+  share: <><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 7.4 6.6 4.4"/></>,
+  volume: <><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7m3-10a9 9 0 0 1 0 13"/></>,
+  link: <><path d="M10 13a5 5 0 0 0 7.54.54l3-3A5 5 0 0 0 13.46 3.46l-1.72 1.72"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.08 7.08l1.72-1.72"/></>,
 };
 
 export function Icon({ name, size = 20, className, style }: { name: IconName; size?: number; className?: string; style?: CSSProperties }) {

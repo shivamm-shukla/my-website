@@ -22,7 +22,7 @@
 
 ## Data and security
 
-- Keep existing Supabase tables, RLS, owner checks, and seed/repository contracts. Do not delete or rewrite stored rows.
+- Keep existing Supabase tables, RLS, owner checks, and seed/repository contracts. Do not delete or rewrite stored rows. Phase 4 adds optional `comments` and `subscribers` tables in `002_blog_interactions.sql`; public mutations still go through rate-limited server actions.
 - Inspect current schema before proposing additive migrations. Missing owner content (social URLs, email, case study details) remains omitted or clearly marked for owner review.
 - Treat draft demo copy as unverified and do not publish it as fact. Confirm the `brg-cli` repository link with the owner before production use.
 - Validate owner-entered external URLs and sanitize Markdown using the existing safe rendering path.
@@ -40,7 +40,7 @@
 - [x] Phase 1: foundation and navigation.
 - [x] Phase 2: Home and hero scene.
 - [x] Phase 3: content pages.
-- [ ] Phase 4: Blog.
+- [x] Phase 4: Blog.
 - [ ] Phase 5: share system.
 - [ ] Phase 6: site bot.
 - [ ] Phase 7: Owner Studio.

@@ -43,6 +43,15 @@ export async function getPublishedBlogs(): Promise<BlogArticle[]> {
 
 export async function getPublishedBlog(slug: string) { return (await getPublishedBlogs()).find((article) => article.slug === slug); }
 
+export type PublicBlogComment = { id: string; name: string; body: string; createdAt: string };
+export async function getApprovedBlogComments(slug: string): Promise<PublicBlogComment[]> {
+  const client = createSupabasePublicClient();
+  if (!client) return [];
+  const { data, error } = await client.from("comments").select("id,name,body,created_at").eq("blog_slug", slug).eq("status", "approved").order("created_at", { ascending: true });
+  if (error) return [];
+  return (data || []).map((row) => ({ id: String(row.id), name: String(row.name), body: String(row.body), createdAt: String(row.created_at) }));
+}
+
 export async function getSiteContent(): Promise<SiteContent> {
   // Phase 3 replaces this repository with published Supabase snapshots.
   // Page components and the future admin preview retain the same contract.
