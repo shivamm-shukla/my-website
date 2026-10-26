@@ -67,7 +67,7 @@ export const siteContent: SiteContent = {
   timeline: [
     { title: "Navodaya", subtitle: "Where it started", description: "Jawahar Navodaya Vidyalaya. Class captain, then school captain. Learning to show up for people.", icon: "book" },
     { title: "Sitare University", subtitle: "Learning by building", description: "B.Tech in Computer Science. AI Club, Rhetoric Club, and Class Representative in second year.", icon: "graduation" },
-    { title: "Building what’s next", subtitle: "Right now", description: "Working on Thravia, building useful tools, and taking on freelance projects.", icon: "sparkles" },
+    { title: "Building what’s next", subtitle: "Right now", description: "Working on Thravia, building useful tools, and taking on freelance projects.", icon: "code" },
   ],
   posts: [
     { id: "sample-people", platform: "linkedin", caption: "Before the stack. Before the screens. One question: whose day are we making a little easier?", topic: "A thought on building", isDemo: true },

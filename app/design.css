@@ -350,3 +350,36 @@ body::before {
   .hero-section h1 { font-size: 39px; }
   .hero-actions .button { padding-inline: 20px; }
 }
+
+/* The hero scene keeps the laptop and floating objects inside a square canvas. */
+.hero-art { container-type: inline-size; max-width: 540px; margin-inline: auto; overflow: visible; }
+.hero-scene { position: absolute; inset: 0; container-type: inline-size; isolation: isolate; }
+.hero-scene-circle { position: absolute; width: 84%; aspect-ratio: 1; left: 8%; top: 7%; border-radius: 50%; background: radial-gradient(circle at 34% 28%, #c9d8ff, #a89ae9 60%, #7567c6); border: 1px solid rgb(255 255 255 / 54%); box-shadow: inset 0 0 50px rgb(255 255 255 / 25%), 0 25px 65px -35px rgb(63 45 135 / 60%); animation: scene-breathe 7s ease-in-out infinite alternate; }
+.hero-laptop-wrap { position: absolute; z-index: 3; left: 1%; top: 19%; width: 98%; filter: drop-shadow(0 22px 18px rgb(30 28 71 / 22%)); transform-style: preserve-3d; }
+.hero-laptop { display: block; width: 100%; height: auto; overflow: visible; transition: transform .12s linear; }
+.hero-code-line { transform-origin: 130px center; animation: code-type 7s ease-out infinite; }
+.hero-cursor { animation: cursor-blink 1s steps(2, start) infinite; }
+.hero-screen-glare { animation: screen-glare 9s ease-in-out infinite; }
+.hero-orbit-item { --orbit-x: 0px; --orbit-y: 0px; position: absolute; z-index: 2; left: 50%; top: 50%; display: grid; place-items: center; width: clamp(48px, 14cqw, 76px); height: clamp(48px, 14cqw, 76px); border: 1px solid var(--v4-border); border-radius: clamp(15px, 4cqw, 23px); background: var(--v4-glass); box-shadow: var(--v4-shadow), inset 0 1px 0 var(--v4-border); backdrop-filter: blur(18px) saturate(180%); -webkit-backdrop-filter: blur(18px) saturate(180%); color: var(--fg); transform: translate(calc(-50% + var(--orbit-x)), calc(-50% + var(--orbit-y))); will-change: transform; }
+.hero-orbit-item svg { width: 48%; height: 48%; }
+.orbit-code { --orbit-x: -34cqw; --orbit-y: -18cqw; }
+.orbit-heart { --orbit-x: 39cqw; --orbit-y: -31cqw; color: #ff3b5c; }
+.orbit-heart-icon { fill: currentColor; stroke: currentColor; }
+.orbit-plant { --orbit-x: -39cqw; --orbit-y: 16cqw; width: clamp(56px, 16cqw, 84px); height: clamp(56px, 16cqw, 84px); border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+.orbit-wave { --orbit-x: 38cqw; --orbit-y: 27cqw; color: #ff6fa8; border: 0; background: transparent; box-shadow: none; backdrop-filter: none; }
+.orbit-glow { --orbit-x: -20cqw; --orbit-y: 39cqw; width: clamp(24px, 7cqw, 38px); height: clamp(24px, 7cqw, 38px); border: 0; background: transparent; box-shadow: none; }
+.orbit-glow-core { width: 58%; height: 58%; border-radius: 50%; background: #30d158; box-shadow: 0 0 24px #30d158, 0 0 50px rgb(48 209 88 / 55%); }
+.orbit-terminal { --orbit-x: 30cqw; --orbit-y: 10cqw; background: #171b28; color: #30d158; }
+.orbit-code-label, .orbit-terminal-label { font: 700 clamp(14px, 4.5cqw, 23px)/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.orbit-branch { --orbit-x: 32cqw; --orbit-y: 36cqw; color: var(--accent); }
+.orbit-chat { --orbit-x: -39cqw; --orbit-y: -32cqw; color: #a15cff; }
+@keyframes scene-breathe { to { filter: brightness(1.06); transform: scale(1.015); } }
+@keyframes code-type { 0%, 12% { transform: scaleX(0); opacity: .15; } 30%, 85% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(0); opacity: .15; } }
+@keyframes cursor-blink { 50% { opacity: 0; } }
+@keyframes screen-glare { 0%, 18% { transform: translateX(-80px); opacity: .1; } 48%, 65% { transform: translateX(140px); opacity: .7; } 100% { transform: translateX(280px); opacity: .1; } }
+@media (min-width: 601px) { .hero-section { padding-top: clamp(48px, 5vw, 68px); } .hero-section h1 { font-size: clamp(48px, 4.8vw, 68px); font-weight: 700; } }
+.hero-section h1 .hero-emphasis { background: linear-gradient(90deg, var(--accent), #a15cff, #ff5fa2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-scene-circle, .hero-code-line, .hero-cursor, .hero-screen-glare { animation: none; }
+  .hero-orbit-item { will-change: auto; }
+}

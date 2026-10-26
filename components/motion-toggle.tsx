@@ -28,5 +28,5 @@ export function MotionToggle({ compact = false }: { compact?: boolean }) {
       document.documentElement.dataset.motion = next;
       try { localStorage.setItem("shivam-motion", next); } catch { /* The current visit still respects the choice. */ }
       window.dispatchEvent(new Event("site:motion"));
-    }}><Icon name="sparkles" size={15} /><span>{system ? "Motion off" : paused ? "Resume motion" : "Pause motion"}</span></button>;
+    }}><Icon name="check" size={15} /><span>{system ? "Motion off" : paused ? "Resume motion" : "Pause motion"}</span></button>;
 }

@@ -38,7 +38,7 @@
 
 - [x] Phase 0: audit and mapping.
 - [x] Phase 1: foundation and navigation.
-- [ ] Phase 2: Home and hero scene.
+- [x] Phase 2: Home and hero scene.
 - [ ] Phase 3: content pages.
 - [ ] Phase 4: Blog.
 - [ ] Phase 5: share system.
