@@ -35,17 +35,30 @@ export default function AssistantWidget({ initiallyOpen = false }: { initiallyOp
       timer.current = setTimeout(() => setBubble(null), 3200);
     };
     const show = () => { setBubble(null); setOpen(true); };
+    const botSays = (event: Event) => {
+      setBubble((event as CustomEvent<string>).detail);
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => setBubble(null), 2800);
+    };
     window.addEventListener("site:theme", theme);
     window.addEventListener("site:assistant", show);
+    window.addEventListener("site:bot-say", botSays);
     const pinState = (event: Event) => setBubble((event as CustomEvent<boolean>).detail ? "Pinned here. Tap me to let me roam again." : "Free to roam again.");
     window.addEventListener("site:robot-pin-state", pinState);
     return () => {
       window.removeEventListener("site:theme", theme);
       window.removeEventListener("site:assistant", show);
+      window.removeEventListener("site:bot-say", botSays);
       window.removeEventListener("site:robot-pin-state", pinState);
       clearTimeout(timer.current);
     };
   }, []);
+
+  useEffect(() => {
+    if (!open) return;
+    const frame = requestAnimationFrame(() => window.dispatchEvent(new Event("site:assistant-open")));
+    return () => cancelAnimationFrame(frame);
+  }, [open]);
 
   useEffect(() => {
     if (lastPath.current === pathname) return;
